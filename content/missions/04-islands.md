@@ -10,11 +10,19 @@
   "options": [
     {
       "title": "One shared bot process and one shared folder",
-      "detail": "Put each friend’s name on a different chat."
+      "detail": "Put each friend’s name on a different chat.",
+      "feedback": {
+        "reason": "Chat names are not access controls on a shared process or folder. A takeover of that process can expose whatever data the process can read, regardless of which chat it belongs to.",
+        "consequence": "A compromised shared bot could read Sina’s stored conversations while acting through Reza’s chat, because both use the same accessible storage."
+      }
     },
     {
       "title": "Two profile folders on an otherwise shared system",
-      "detail": "Different folder names should be the whole boundary."
+      "detail": "Different folder names should be the whole boundary.",
+      "feedback": {
+        "reason": "Separate profile folders organize state, but folder names alone do not restrict operating-system access. A compromised process may still have permission to read both profiles.",
+        "consequence": "If Reza’s process can open Sina’s profile directory, it can read Sina’s data without changing its own profile name or joining Sina’s chat."
+      }
     },
     {
       "title": "Separate isolated instances, networks, and proxies",

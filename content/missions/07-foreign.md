@@ -10,11 +10,19 @@
   "options": [
     {
       "title": "Allow it because the website is Telegram",
-      "detail": "Every request to an allowed domain is safe."
+      "detail": "Every request to an allowed domain is safe.",
+      "feedback": {
+        "reason": "Telegram hosts many bots and accounts. Checking only the destination says nothing about whether this request uses Reza’s intended identity or the attacker’s bot.",
+        "consequence": "The request could send data through the attacker’s bot while still going to api.telegram.org. A domain-only check would allow the request toward the very recipient you want to exclude."
+      }
     },
     {
       "title": "Ask the AI whether the request feels suspicious",
-      "detail": "Let the model make the final security decision."
+      "detail": "Let the model make the final security decision.",
+      "feedback": {
+        "reason": "The model is part of the potentially compromised system. Asking it whether its own request looks suspicious does not add an independent enforcement point.",
+        "consequence": "A misled model could approve the attacker’s token because the destination says Telegram. The proxy would then have no enforced reason to stop that foreign identity."
+      }
     },
     {
       "title": "Reject it unless it carries Reza’s expected replacement token",

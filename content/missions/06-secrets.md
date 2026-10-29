@@ -10,7 +10,11 @@
   "options": [
     {
       "title": "Put real credentials in a file called secret.txt",
-      "detail": "The name warns everyone not to open it."
+      "detail": "The name warns everyone not to open it.",
+      "feedback": {
+        "reason": "A filename is a label, not a restriction. The scenario says the attacker can already read every file in the bot instance, including one named secret.txt.",
+        "consequence": "The attacker reads the real key from that file and may use it outside your server until you revoke it. Naming the file ‘secret’ does not prevent that reuse."
+      }
     },
     {
       "title": "Give the bot replacement tokens; keep real credentials in its proxy",
@@ -18,7 +22,11 @@
     },
     {
       "title": "Put real credentials in the bot’s environment variables",
-      "detail": "They are not visible in the normal chat window."
+      "detail": "They are not visible in the normal chat window.",
+      "feedback": {
+        "reason": "Environment variables are hidden from the normal chat interface, but not from a process compromise. The attacker in this scenario can read them.",
+        "consequence": "A compromised bot process could obtain the real API key or bot token from its environment and reuse those credentials directly with the provider or Telegram."
+      }
     }
   ],
   "answer": [

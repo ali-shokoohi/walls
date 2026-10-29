@@ -116,8 +116,10 @@ Key fields:
 | `scene`, `speaker`, `message` | The story situation |
 | `task` | Question or decision |
 | `challenge_type` | `choice`, `multi`, or `order` |
-| `options` | Objects containing a `title` and `detail` |
+| `options` | Objects containing a `title`, `detail`, and authored `feedback` where an incorrect choice or omission needs explanation |
 | `answer` | **Zero-based** option indexes; order matters for `order` only |
+| `options[].feedback` | `reason` (the assumption or safeguard that fails) and `consequence` (a concrete counterexample); required on wrong single choices and every multi/order option |
+| `order_rules` | For ordering missions: adjacent prerequisite pairs with zero-based `before`, `after`, `reason`, and `consequence` |
 | `success`, `lesson`, `why` | Correct-answer explanation and takeaways |
 | `term` | Object with `word` and `meaning` for the wordbook |
 | `source` | PDF section identifier, e.g. `s13` |
@@ -153,7 +155,8 @@ Hugo's pretty URLs use the filename, such as
   reload, and finishing the game restores the final briefing instead of asking
   you to solve the last mission again. Only the current mission's draft is kept;
   moving to a different mission starts that mission with a fresh selection.
-- Hints expand in place. Reduced-motion preferences also apply to retry scrolling.
+- Wrong answers explain the submitted choice, its failed assumption, and a concrete consequence instead of printing the lesson as a hint. Multi-select feedback distinguishes unsafe extras from missing protections; ordering feedback diagnoses broken prerequisites and omitted steps. Correct selections are not mislabeled as wrong.
+- Hints remain optional and collapse on submission. Reduced-motion preferences also apply to retry scrolling.
 - Wordbook, Help, and Mission trail use named dialogs, keyboard Escape, focus
   restoration, and reachable sticky close controls on short screens.
 - Keyboard users can skip directly to the content. Navigation targets are at least

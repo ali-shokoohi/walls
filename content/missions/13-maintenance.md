@@ -14,11 +14,19 @@
     },
     {
       "title": "Leave the install network open for convenience",
-      "detail": "The next update will be easier."
+      "detail": "The next update will be easier.",
+      "feedback": {
+        "reason": "The install network was a temporary exception, not the intended running environment. Leaving it open makes the previous closed-network assumption false.",
+        "consequence": "A later compromised bot could attempt direct internet connections through the install route instead of using only its controlled proxy."
+      }
     },
     {
       "title": "Trust the previous tests forever",
-      "detail": "They passed before the software changed."
+      "detail": "They passed before the software changed.",
+      "feedback": {
+        "reason": "Earlier tests checked an earlier configuration and software version. The update may have changed permissions, defaults, or networking.",
+        "consequence": "A package could restore a privileged permission or a changed setting could reopen access. Last week’s passing result would not detect today’s change."
+      }
     }
   ],
   "answer": [

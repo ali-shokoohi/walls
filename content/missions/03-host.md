@@ -10,7 +10,11 @@
   "options": [
     {
       "title": "Your everyday personal computer",
-      "detail": "It already has your photos, work files, and saved logins."
+      "detail": "It already has your photos, work files, and saved logins.",
+      "feedback": {
+        "reason": "Your personal computer contains unrelated valuables. In this scenario the attacker gains control of the whole host, so putting the bot beside those valuables puts them within the same failure zone.",
+        "consequence": "A host takeover could expose work files or saved logins as well as the bot. Rebuilding the bot would not undo the theft of those unrelated files."
+      }
     },
     {
       "title": "A dedicated server with no unrelated personal data",
@@ -18,7 +22,11 @@
     },
     {
       "title": "A friend’s all-purpose server",
-      "detail": "Share it with their other services to save setup time."
+      "detail": "Share it with their other services to save setup time.",
+      "feedback": {
+        "reason": "Your friend’s all-purpose server still contains unrelated services and data. Moving the bot to somebody else’s shared machine does not remove the risk of a full host takeover.",
+        "consequence": "If that host is lost, your friend may lose access to other services or their data too. Saving setup time does not limit that damage."
+      }
     }
   ],
   "answer": [

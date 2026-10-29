@@ -201,10 +201,65 @@ function paint() {
   });
   $("#reviewSource")?.addEventListener("click", openAbout);
 }
+function failureCard(title, explanation, kind) {
+  return `<div class="failure-detail failure-${kind}"><h4>${esc(title)}</h4><p class="failure-label">Why this fails</p><p class="failure-reason">${esc(explanation.reason)}</p><p class="failure-label">What could happen</p><p class="failure-consequence">${esc(explanation.consequence)}</p></div>`;
+}
+function wrongAnswerFeedback(m) {
+  let details;
+  if (m.type === "order") {
+    const violations = (m.order_rules || []).filter(
+      (rule) =>
+        selected.includes(rule.before) &&
+        selected.includes(rule.after) &&
+        selected.indexOf(rule.before) > selected.indexOf(rule.after),
+    );
+    details = violations.map((rule) =>
+      failureCard(
+        `Order problem: “${m.options[rule.before].title}” must come before “${m.options[rule.after].title}”`,
+        rule,
+        "order",
+      ),
+    );
+    details.push(
+      ...m.answer
+        .filter((i) => !selected.includes(i))
+        .map((i) =>
+          failureCard(
+            `Missing step: ${m.options[i].title}`,
+            m.options[i].feedback,
+            "missing",
+          ),
+        ),
+    );
+  } else {
+    details = selected
+      .filter((i) => !m.answer.includes(i))
+      .map((i) =>
+        failureCard(
+          `You chose: ${m.options[i].title}`,
+          m.options[i].feedback,
+          "extra",
+        ),
+      );
+    if (m.type === "multi") {
+      details.push(
+        ...m.answer
+          .filter((i) => !selected.includes(i))
+          .map((i) =>
+            failureCard(
+              `Missing protection: ${m.options[i].title}`,
+              m.options[i].feedback,
+              "missing",
+            ),
+          ),
+      );
+    }
+  }
+  return `<section class="feedback bad" tabindex="-1" id="resultBox"><div class="reward">Try, learn, adjust</div><h3>Here’s where this decision breaks.</h3><p>${m.type === "choice" ? "This is the assumption in your chosen answer that does not hold." : "These are the specific gaps in your submitted answer."} The consequences below are examples, not actions run by this game.</p>${details.join("")}<p class="mini">There is no penalty. Change your answer and test your reasoning again.</p><div class="actions"><button class="primary" id="again">Try another decision</button></div></section>`;
+}
 function feedback(m) {
   if (!result) return "";
-  if (result === "wrong")
-    return `<section class="feedback bad" tabindex="-1" id="resultBox"><div class="reward">Try, learn, adjust</div><h3>A useful mistake.</h3><p>${m.type === "multi" ? "Some choices are missing or extra." : m.type === "order" ? "The steps are not in the safest order yet." : "That choice leaves an important gap."} There is no penalty.</p><p class="rule">Think about this: ${esc(m.lesson)}</p><p>Re-read the choices and try again. You can use the hint as often as you like.</p><div class="actions"><button class="primary" id="again">Try another decision</button></div></section>`;
+  if (result === "wrong") return wrongAnswerFeedback(m);
   return `<section class="feedback" tabindex="-1" id="resultBox"><div class="reward">${esc(m.reward)} · ${isDone(m) ? "Mission complete" : ""}</div><h3>${m.unlocks.length ? "Defense unlocked." : "You’ve got the idea."}</h3><p>${esc(m.success)}</p><p class="rule">${esc(m.lesson)}</p><ul>${m.why.map((w) => `<li>${esc(w)}</li>`).join("")}</ul><div class="term"><strong>Plain-language word: ${esc(m.term.word)}</strong><br>${esc(m.term.meaning)}</div><p class="mini">From the PDF: ${sourceName(m.source)}.</p><div class="actions"><button class="primary" id="next">${state.index === MISSIONS.length - 1 ? "Open my final briefing" : "Next mission"} →</button><button class="quiet" id="reviewSource">About the source</button></div></section>`;
 }
 function sourceName(s) {
@@ -232,6 +287,7 @@ function check() {
     b = m.type === "order" ? m.answer : [...m.answer].sort((a, b) => a - b);
   const good = JSON.stringify(a) === JSON.stringify(b);
   result = good ? "correct" : "wrong";
+  showHint = false;
   if (good && !isDone(m)) state.done.push(m.id);
   if (!good) state.retries[m.id] = (state.retries[m.id] || 0) + 1;
   storeDraft();

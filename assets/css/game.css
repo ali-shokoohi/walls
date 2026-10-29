@@ -477,6 +477,27 @@ main {
   border-color: #e0bb8f;
   background: #fff3dc;
 }
+.failure-detail {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #ddc7a6;
+}
+.failure-detail h4 {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.failure-detail .failure-label {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #72502b;
+  margin: 14px 0 4px;
+}
+.failure-detail p {
+  line-height: 1.65;
+}
 .feedback h3 {
   font:
     26px Georgia,

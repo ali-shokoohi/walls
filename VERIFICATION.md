@@ -8,11 +8,12 @@
 
 ## Results
 
-- 3 Python/Hugo integration tests passed:
+- 4 Python/Hugo integration/content tests passed:
   - A real Hugo build publishes the game, 14 ordered missions, and local assets.
   - A minified subpath build keeps local asset/navigation URLs under `/learn/`.
   - Editing a Markdown mission changes both game data and the readable lesson page.
-- 14 Playwright browser tests passed:
+  - Every wrong choice or omitted safeguard has authored reasoning and a concrete consequence; ordering rules cover the prerequisite chain.
+- 18 Playwright browser tests passed:
   - All 14 missions, final screen, wrong-answer retry, scoring, notes download, and no duplicate replay points.
   - Progress recovery after a real page reload.
   - Unsafe extra multi-select answers and incorrect ordering rejected.
@@ -26,6 +27,10 @@
   - Hints expand without replacing the question; Clear selection resets submission state.
   - Dialogs scroll on a 568×320 landscape viewport while keeping the close button reachable.
   - Enlarged text reflows and the keyboard skip link focuses the content.
+  - Every wrong single-choice answer renders its own explanation, not the general lesson/hint.
+  - Optional hints collapse on submission; wrong-answer reasoning survives reloads.
+  - Multi-select feedback identifies unsafe extras and missing protections without criticizing safe selections.
+  - Ordering feedback explains broken prerequisites and missing steps.
 - Production smoke test passed using Hugo's minified output served at `/learn/`:
   - First mission completed, 100 points awarded.
   - 14-entry mission library available.

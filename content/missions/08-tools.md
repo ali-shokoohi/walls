@@ -14,11 +14,19 @@
     },
     {
       "title": "Enable everything but tell the bot to be careful",
-      "detail": "A long safety prompt can replace restrictions."
+      "detail": "A long safety prompt can replace restrictions.",
+      "feedback": {
+        "reason": "A safety prompt does not remove a tool’s capability or access. If the model is fooled, all the unnecessary actions remain available.",
+        "consequence": "Reza only needs chat, but a malicious document could still try to trigger an enabled browser, program runner, or scheduler. Those capabilities create risk without serving his stated need."
+      }
     },
     {
       "title": "Enable everything and ask for a yes/no approval in the same chat",
-      "detail": "An attacker with that account could never approve an action."
+      "detail": "An attacker with that account could never approve an action.",
+      "feedback": {
+        "reason": "The approval goes to the same account that may have been stolen. Whoever controls that account can also answer the approval prompt.",
+        "consequence": "An attacker using Reza’s Telegram session can request an action and then press yes. That round trip does not prove that a separate trusted person approved it."
+      }
     }
   ],
   "answer": [

@@ -65,6 +65,22 @@ class HugoBuildTests(unittest.TestCase):
             page = project / 'public/missions/01-invitation/index.html'
             self.assertIn('A newly edited mission', page.read_text())
 
+    def test_failure_feedback_is_authored_for_every_possible_gap(self):
+        for path in sorted((ROOT / 'content/missions').glob('[0-9]*.md')):
+            mission, _ = json.JSONDecoder().raw_decode(path.read_text())
+            answer = mission['answer']
+            for i, option in enumerate(mission['options']):
+                if mission['challenge_type'] == 'choice' and i in answer:
+                    continue
+                explanation = option.get('feedback', {})
+                self.assertGreater(len(explanation.get('reason', '')), 40, f'{path.name} option {i}')
+                self.assertGreater(len(explanation.get('consequence', '')), 40, f'{path.name} option {i}')
+            if mission['challenge_type'] == 'order':
+                rules = mission['order_rules']
+                self.assertEqual([(r['before'], r['after']) for r in rules], list(zip(answer, answer[1:])))
+                for rule in rules:
+                    self.assertTrue(rule['reason'] and rule['consequence'])
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

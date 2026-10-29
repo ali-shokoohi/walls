@@ -10,19 +10,35 @@
   "options": [
     {
       "title": "Separate from the Hermes instance",
-      "detail": "A program should not run next to the bot’s memory, settings, or credentials."
+      "detail": "A program should not run next to the bot’s memory, settings, or credentials.",
+      "feedback": {
+        "reason": "Without a separate execution environment, the hostile program can run beside the bot’s own state under the same permissions. Restricting the program’s network does not stop local file access.",
+        "consequence": "The program could try to read conversations or alter writable memory in the Hermes home. Network isolation alone does not separate those local files."
+      }
     },
     {
       "title": "No network access",
-      "detail": "Do not give an untrusted program a route to the internet or the proxy."
+      "detail": "Do not give an untrusted program a route to the internet or the proxy.",
+      "feedback": {
+        "reason": "A separate workshop can still send information out if it has a network route. Separation of files does not itself prevent outgoing requests.",
+        "consequence": "A hostile program could try to upload any accessible data or contact another service. A network-free workshop removes that route rather than relying on the program to behave."
+      }
     },
     {
       "title": "Temporary writes that are discarded when the session ends",
-      "detail": "Do not keep the program’s changes as permanent trusted state."
+      "detail": "Do not keep the program’s changes as permanent trusted state.",
+      "feedback": {
+        "reason": "If writes are kept permanently, an untrusted program can leave changes for future sessions. A session ending would not remove those changes.",
+        "consequence": "A modified startup file or poisoned working file could be read on the next run. Discarding the session’s writes prevents that particular form of persistence."
+      }
     },
     {
       "title": "A shared folder containing the bot’s settings and secrets",
-      "detail": "Make every file available so the program never gets stuck."
+      "detail": "Make every file available so the program never gets stuck.",
+      "feedback": {
+        "reason": "Mounting the bot’s settings and secrets into the workshop puts the protected valuables inside reach of the hostile program. Calling the environment a sandbox does not change the files it can access.",
+        "consequence": "A program could read a mounted settings file, or change it if the mount is writable. The separate workshop would no longer keep those bot files out of reach."
+      }
     }
   ],
   "answer": [

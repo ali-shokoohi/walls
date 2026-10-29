@@ -10,7 +10,11 @@
   "options": [
     {
       "title": "Yes. Six layers make a breach impossible",
-      "detail": "There is no need to think about privacy or updates anymore."
+      "detail": "There is no need to think about privacy or updates anymore.",
+      "feedback": {
+        "reason": "Several layers reduce the impact of failures but do not make bugs or account theft impossible. They also do not remove the operator’s or model provider’s access to conversation data.",
+        "consequence": "If Reza treats the bot as an impossible-to-hack private diary, he may enter secrets the administrator can read or that the provider receives during normal operation."
+      }
     },
     {
       "title": "It limits damage, but it is not perfect or fully private",
@@ -18,7 +22,11 @@
     },
     {
       "title": "The AI will always detect attacks now",
-      "detail": "The layers taught the model never to make mistakes."
+      "detail": "The layers taught the model never to make mistakes.",
+      "feedback": {
+        "reason": "The boundaries constrain what the system can do; they do not train the model to recognize every attack. Prompt injection and software flaws can still occur.",
+        "consequence": "A poisoned document may still mislead the model. The defenses are meant to restrict the resulting action, not guarantee that the model never chooses it."
+      }
     }
   ],
   "answer": [

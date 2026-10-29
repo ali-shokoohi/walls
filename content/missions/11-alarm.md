@@ -10,7 +10,11 @@
   "options": [
     {
       "title": "Ignore it because the request was blocked",
-      "detail": "A stopped attempt cannot teach us anything."
+      "detail": "A stopped attempt cannot teach us anything.",
+      "feedback": {
+        "reason": "Blocking this request shows one wall worked, not why the unexpected request happened. A misled or compromised bot may keep attempting other actions.",
+        "consequence": "Ignoring the event could leave poisoned content, changed state, or an attacker-controlled session undiscovered while the bot continues running."
+      }
     },
     {
       "title": "Investigate promptly and check related activity",
@@ -18,7 +22,11 @@
     },
     {
       "title": "Add the website to the allowlist immediately",
-      "detail": "Making the warning disappear is the goal."
+      "detail": "Making the warning disappear is the goal.",
+      "feedback": {
+        "reason": "A rejection is evidence that the request violated policy, not evidence that the policy should be relaxed. Adding the destination removes the wall before you know why it was tested.",
+        "consequence": "If the request came from a data-theft attempt, the next upload to that newly allowed website might pass instead of producing a rejection."
+      }
     }
   ],
   "answer": [
