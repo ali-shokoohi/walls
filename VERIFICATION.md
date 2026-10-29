@@ -6,7 +6,28 @@
 - Playwright test dependency pinned to 1.64.1; tested against installed Chromium.
 - No external theme, remote font, runtime API, or browser JS library.
 
-## Results
+## Spanish language support
+
+- Contributor preflight passed: `Validated 14 missions, 3 locales, 8 translation sections.`
+- `CHROMIUM_PATH=/usr/bin/chromium npm run check` passed:
+  - Formatting checks passed with the pinned Prettier version.
+  - All 9 Node unit tests passed, including authored Spanish view rendering.
+  - All 21 Python validation/structure/Hugo tests passed, including Spanish lesson
+    URLs and local assets under `/learn/`, all 14 translated missions, stable
+    answer indexes and translation links to the corresponding English/Persian lesson.
+  - All 45 Playwright tests passed. New Spanish checks cover all 14 missions,
+    wrong-answer retry, completion persistence and translated notes export at
+    320px and 1440px, LTR direction with no Persian font requests, keyboard language
+    switching with shared progress/draft preservation, and the no-JavaScript library.
+  - The narrow language-picker check includes English, Persian and Spanish.
+- `hugo --minify --panicOnWarning` and `git diff --check` passed.
+- English/Persian regression tests remain green. Spanish screenshots have not
+  received a separate visual review, and the translation has not received an
+  independent native-speaker review.
+- No dependencies, storage format, mission IDs or answer indexes changed. The
+  original reference PDF remains English; no remote deployment was performed.
+
+## Earlier baseline results
 
 - Contributor preflight passed: `Validated 14 missions, 2 locales, 8 translation sections.`
 - `npm run format:check` passed using the pinned Prettier version.

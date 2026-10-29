@@ -24,17 +24,17 @@ examples, screenshots, or commits. The game never needs them.
 
 ## Where to make changes
 
-| Change                             | Location                                                       |
-| ---------------------------------- | -------------------------------------------------------------- |
-| Mission story, choices, feedback   | `content/missions/<slug>/index.en.md` and `index.fa.md`        |
-| Interface wording                  | `data/locales/<section>/strings.en.json` and `strings.fa.json` |
-| Answer correctness / diagnosis     | `assets/js/core/rules.js`                                      |
-| Progress saving / recovery         | `assets/js/core/state.js`                                      |
-| Escaping, numbers, text direction  | `assets/js/core/i18n.js`                                       |
-| Screen markup                      | `assets/js/views/`                                             |
-| Click/keyboard flow, navigation    | `assets/js/app.js` and `assets/js/ui/`                         |
-| Visual design                      | `assets/css/`                                                  |
-| Readable lesson pages / HTML shell | `layouts/`                                                     |
+| Change                             | Location                                                            |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| Mission story, choices, feedback   | `content/missions/<slug>/index.<language>.md` (`en`, `fa`, `es`)    |
+| Interface wording                  | `data/locales/<section>/strings.<language>.json` (`en`, `fa`, `es`) |
+| Answer correctness / diagnosis     | `assets/js/core/rules.js`                                           |
+| Progress saving / recovery         | `assets/js/core/state.js`                                           |
+| Escaping, numbers, text direction  | `assets/js/core/i18n.js`                                            |
+| Screen markup                      | `assets/js/views/`                                                  |
+| Click/keyboard flow, navigation    | `assets/js/app.js` and `assets/js/ui/`                              |
+| Visual design                      | `assets/css/`                                                       |
+| Readable lesson pages / HTML shell | `layouts/`                                                          |
 
 Read [content authoring](docs/content-authoring.md) before adding a mission and
 [translation/RTL guidance](docs/translations.md) before editing a locale.
@@ -73,7 +73,7 @@ it is a template until you push this project to your own repository.
   tests; actual focus, navigation, scrolling and font loading belong in browser tests.
 - Do not duplicate JavaScript implementations or publish test-only globals. Import
   shared logic, and test pure helpers directly rather than calling browser globals.
-- Test shared interface changes in both English and Persian, at desktop and
+- Test shared interface changes in English, Persian and Spanish, at desktop and
   narrow-phone widths. Keep keyboard focus and reduced-motion behavior intact.
 - Do not commit `public/`, `resources/`, `node_modules/`, test output, or caches.
 - Avoid reformatting unrelated files. Go templates and JSON-front-matter Markdown

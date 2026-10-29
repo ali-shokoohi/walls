@@ -11,6 +11,53 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class HugoBuildTests(unittest.TestCase):
+    def test_spanish_game_and_readable_lessons_publish_under_a_subpath(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-es-') as destination:
+            result = subprocess.run(
+                ['hugo', '--source', str(ROOT), '--destination', destination,
+                 '--baseURL', 'https://example.org/learn/', '--panicOnWarning'],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            spanish_home = Path(destination) / 'es/index.html'
+            self.assertTrue(spanish_home.is_file(), 'Missing Spanish homepage')
+            home = spanish_home.read_text()
+            self.assertIn('lang="es-ES"', home)
+            self.assertIn('dir="ltr"', home)
+            self.assertNotIn('Vazirmatn', home)
+            self.assertIn('Español', home)
+            self.assertIn('Bot pequeño, muros fuertes', home)
+            match = re.search(
+                r'<script id="mission-data" type="application/json">(.*?)</script>',
+                home, re.S)
+            self.assertIsNotNone(match)
+            assert match is not None
+            missions = json.loads(match.group(1))
+            self.assertEqual(len(missions), 14)
+            for source in sorted((ROOT / 'content/missions').glob('[0-9]*/index.en.md')):
+                en, _ = json.JSONDecoder().raw_decode(source.read_text())
+                es, _ = json.JSONDecoder().raw_decode(source.with_name('index.es.md').read_text())
+                for key in ['id', 'weight', 'source', 'challenge_type', 'answer', 'unlocks']:
+                    self.assertEqual(en[key], es[key], f'{source.parent.name}: {key}')
+                self.assertEqual(len(en['options']), len(es['options']))
+                # Proper names in speaker labels (for example Sina) stay unchanged.
+                for key in ['title', 'chapter', 'goal', 'scene', 'message',
+                            'task', 'success', 'lesson', 'why', 'term', 'reward']:
+                    self.assertNotEqual(en[key], es[key], f'{source.parent.name}: {key}')
+                lesson = (Path(destination) / 'es/missions' / source.parent.name / 'index.html').read_text()
+                self.assertIn(es['title'], lesson)
+                self.assertIn(f'href="/learn/missions/{source.parent.name}/" lang="en"', lesson)
+                self.assertIn(f'href="/learn/fa/missions/{source.parent.name}/" lang="fa"', lesson)
+            self.assertTrue((Path(destination) / 'es/missions/index.html').is_file())
+            for url in re.findall(r'(?:src|href)="([^"]+)"', home):
+                if not url.startswith('/'):
+                    continue
+                self.assertTrue(url.startswith('/learn/'), url)
+                target = Path(destination) / url.removeprefix('/learn/')
+                if url.endswith('/'):
+                    target /= 'index.html'
+                self.assertTrue(target.exists(), url)
+
     def test_dark_theme_follows_system_preference(self):
         with tempfile.TemporaryDirectory(prefix='hugo-theme-') as destination:
             result = subprocess.run(
@@ -81,13 +128,13 @@ class HugoBuildTests(unittest.TestCase):
             page = project / 'public/missions/01-invitation/index.html'
             self.assertIn('A newly edited mission', page.read_text())
 
-    def test_language_dropdown_discovers_a_third_locale_and_preserves_lesson_links(self):
+    def test_language_dropdown_discovers_an_additional_locale_and_preserves_lesson_links(self):
         with tempfile.TemporaryDirectory(prefix='hugo-languages-') as temp:
             project = Path(temp) / 'site'
             shutil.copytree(ROOT, project, ignore=shutil.ignore_patterns(
                 '.git', 'node_modules', 'public', 'resources', '__pycache__', 'test-results'))
             with (project / 'hugo.toml').open('a') as config:
-                config.write("\n[languages.de]\nweight = 3\nlabel = 'Deutsch'\nlocale = 'de-DE'\ndirection = 'ltr'\n")
+                config.write("\n[languages.de]\nweight = 4\nlabel = 'Deutsch'\nlocale = 'de-DE'\ndirection = 'ltr'\n")
             # English copies are a test fixture only, not a published translation.
             for source in list((project / 'content').rglob('*.en.md')):
                 shutil.copyfile(source, source.with_name(source.name.replace('.en.', '.de.')))
@@ -99,7 +146,7 @@ class HugoBuildTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             lesson = (project / 'public/fa/missions/01-invitation/index.html').read_text()
             picker = re.search(r'<ul class="language-options">(.*?)</ul>', lesson, re.S).group(1)
-            self.assertEqual(len(re.findall(r'<a ', picker)), 3)
+            self.assertEqual(len(re.findall(r'<a ', picker)), 4)
             self.assertIn('href="/learn/de/missions/01-invitation/" lang="de"', picker)
             self.assertIn('Deutsch', picker)
             self.assertEqual(picker.count('aria-current="page"'), 1)

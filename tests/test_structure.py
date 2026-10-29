@@ -14,7 +14,7 @@ class ContributorStructureTests(unittest.TestCase):
         self.assertEqual(len(bundles), 14)
         for bundle in bundles:
             self.assertTrue(bundle.is_dir(), f'{bundle.name}: use a mission directory')
-            for lang in ['en', 'fa']:
+            for lang in ['en', 'fa', 'es']:
                 self.assertTrue((bundle / f'index.{lang}.md').is_file())
         self.assertTrue((ROOT / 'content/missions/_index.en.md').is_file())
 
@@ -30,14 +30,15 @@ class ContributorStructureTests(unittest.TestCase):
         self.assertGreaterEqual(len(sections), 6)
         for section in sections:
             en = json.loads((section / 'strings.en.json').read_text())
-            fa = json.loads((section / 'strings.fa.json').read_text())
-            self.assertEqual(set(en), set(fa), section.name)
+            for lang in ['fa', 'es']:
+                translated = json.loads((section / f'strings.{lang}.json').read_text())
+                self.assertEqual(set(en), set(translated), f'{section.name}: {lang}')
 
-    def test_bundle_move_preserves_bilingual_urls(self):
+    def test_bundle_move_preserves_translated_urls(self):
         with tempfile.TemporaryDirectory(prefix='hugo-structure-') as destination:
             build = subprocess.run(['hugo', '--source', str(ROOT), '--destination', destination, '--panicOnWarning'], capture_output=True, text=True)
             self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
-            for lang in ['', 'fa/']:
+            for lang in ['', 'fa/', 'es/']:
                 self.assertTrue((Path(destination) / f'{lang}missions/01-invitation/index.html').exists())
                 self.assertTrue((Path(destination) / f'{lang}missions/14-final/index.html').exists())
 

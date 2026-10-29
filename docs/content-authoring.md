@@ -7,7 +7,7 @@ commands. Keep the normal-user audience, conditional security claims and privacy
 limits. Mistakes should help the learner reason, not cost lives or points.
 
 Find the mission directory under `content/missions/`, and edit the appropriate
-`index.en.md` or `index.fa.md`. These files start with **JSON front matter**.
+`index.en.md`, `index.fa.md` or `index.es.md`. These files start with **JSON front matter**.
 The folder owns the URL; the language suffix links the translations.
 
 ## Schema
@@ -60,7 +60,7 @@ fabricated reports of a real attack or test.
 ## Add a mission
 
 1. Copy a nearby bundle to a new directory, for example `15-new-scenario/`.
-2. Keep matching `index.en.md` / `index.fa.md` files (and every other configured language).
+2. Keep matching `index.en.md` / `index.fa.md` / `index.es.md` files (and every other configured language).
 3. Give the lesson a unique stable `id` and `weight`; adjust narrative and feedback.
 4. Keep answers, option order, unlocks and prerequisites aligned across translations.
 5. Run `python3 scripts/validate.py`, then the tests from `CONTRIBUTING.md`.

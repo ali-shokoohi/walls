@@ -1,11 +1,12 @@
 # Small Bot, Strong Walls
 
-A bilingual **Hugo** learning game about sharing an AI agent safely: 14 short
+A multilingual **Hugo** learning game about sharing an AI agent safely: 14 short
 story missions, forgiving retries, choice-specific feedback, a wordbook, and saved
 progress. No coding or server experience is needed to play.
 
 - **English:** `/`, left-to-right, original fonts.
 - **فارسی:** `/fa/`, right-to-left, locally hosted **Vazirmatn only on Persian pages**.
+- **Español:** `/es/`, left-to-right, with the complete game and readable lessons.
 - A readable mission library works without JavaScript.
 - Everything deploys as static files; no backend, analytics, CDN, or runtime API.
 
@@ -23,7 +24,8 @@ Standard Hugo is sufficient; Extended and npm are not required to build/play.
 hugo server --bind 127.0.0.1 --port 1313
 ```
 
-Open **http://localhost:1313/** or **http://localhost:1313/fa/**.
+Open **http://localhost:1313/**, **http://localhost:1313/fa/**, or
+**http://localhost:1313/es/**.
 
 ## Contribute
 
@@ -38,18 +40,23 @@ changes each have a small, clearly owned place:
 content/
   _index.en.md                  # English homepage
   _index.fa.md                  # Persian homepage
+  _index.es.md                  # Spanish homepage
   missions/
     _index.en.md                # English mission library
     _index.fa.md                # Persian mission library
+    _index.es.md                # Spanish mission library
     01-invitation/
       index.en.md               # One mission, English
       index.fa.md               # Same mission, Persian
+      index.es.md               # Same mission, Spanish
     ...
 data/locales/
   welcome/strings.en.json       # Welcome-section interface strings
   welcome/strings.fa.json
+  welcome/strings.es.json
   mission/strings.en.json       # Other sections follow the same convention
   mission/strings.fa.json
+  mission/strings.es.json
   ...
 assets/js/
   main.js                       # ES module entry; imports app and locale helpers
@@ -155,7 +162,7 @@ new runtime dependency is required.
 
 Completed mission IDs, the current draft, feedback and paused/final screen stay
 in this browser under `hermes-security-adventure-v1`. Language switching shares
-progress because both translations use the same canonical IDs and answer indexes.
+progress because all translations use the same canonical IDs and answer indexes.
 The game does not transmit progress. Your static host may still log normal page
 requests according to its own policy.
 

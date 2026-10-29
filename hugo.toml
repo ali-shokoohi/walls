@@ -23,5 +23,14 @@ disableKinds = ['taxonomy', 'term', 'RSS']
   [languages.fa.params]
     description = 'امنیت ربات هوش مصنوعی را با ۱۴ مأموریت داستانی یاد بگیر؛ بدون نیاز به کدنویسی، زمان‌سنج یا تجربهٔ مدیریت سرور.'
 
+[languages.es]
+  weight = 3
+  label = 'Español'
+  locale = 'es-ES'
+  direction = 'ltr'
+  title = 'Bot pequeño, muros fuertes'
+  [languages.es.params]
+    description = 'Aprende a proteger un bot de IA con 14 misiones narrativas. Sin programar, sin cronómetros y sin experiencia con servidores.'
+
 [module.hugoVersion]
   min = '0.158.0'

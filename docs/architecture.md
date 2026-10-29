@@ -3,7 +3,7 @@
 ## Request/build flow
 
 ```text
-content/missions/<slug>/index.en.md + index.fa.md
+content/missions/<slug>/index.en.md + index.fa.md + index.es.md
             ↓ Hugo page bundles, ordered by weight
 layouts/_partials/missions-data.html → JSON inside the homepage
 
@@ -50,16 +50,20 @@ Each mission is a Hugo **leaf bundle** containing its translations:
 content/missions/
   _index.en.md
   _index.fa.md
+  _index.es.md
   01-invitation/
     index.en.md
     index.fa.md
+    index.es.md
   02-injection/
     index.en.md
     index.fa.md
+    index.es.md
 ```
 
 The directory is the public slug; this reorganization preserves existing URLs
-such as `/missions/01-invitation/` and `/fa/missions/01-invitation/`.
+such as `/missions/01-invitation/`, `/fa/missions/01-invitation/`, and
+`/es/missions/01-invitation/`.
 Hugo `.Translations` links the corresponding pages. `_index.<lang>.md` files
 represent sections; `index.<lang>.md` files represent individual lesson bundles.
 
@@ -75,7 +79,7 @@ keys, language files and mismatched placeholders before deployment.
 `styles.html` concatenates CSS in a documented order: tokens → base → components
 → interactions → responsive → accessibility. This preserves the cascade and
 publishes one minified fingerprinted stylesheet, without runtime `@import`
-requests. Persian-only typography remains in `farsi.css`; English never loads it.
+requests. Persian-only typography remains in `farsi.css`; English and Spanish never load it.
 
 Motion lives in `interactions.css` behind `prefers-reduced-motion: no-preference`.
 `app.js` marks scene entrances versus feedback updates with `#app[data-motion]`,

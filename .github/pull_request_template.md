@@ -6,7 +6,7 @@
 
 - [ ] `npm run check` (or list the focused checks below)
 - [ ] `hugo --minify --panicOnWarning`
-- [ ] English LTR and Persian RTL checked for UI/content changes
+- [ ] English/Spanish LTR and Persian RTL checked for UI/content changes
 - [ ] Phone layout and keyboard flow checked for interface changes
 - [ ] Translation keys/placeholders and stable mission IDs preserved
 - [ ] Wrong answers explain the actual mistake, not an unsolicited hint

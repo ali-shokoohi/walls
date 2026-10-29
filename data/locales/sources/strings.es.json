@@ -1,0 +1,15 @@
+{
+  "s1": "Resumen y veredicto",
+  "s2": "Modelo de amenazas",
+  "s7": "Capa 1: Refuerzo del equipo",
+  "s8": "Capa 2: Aislamiento de la ejecución",
+  "s9": "Capa 3: Aislamiento de red",
+  "s10": "Capa 4: Secretos",
+  "s11": "Capa 5: Refuerzo de Hermes",
+  "s12": "Capa 6: Entorno aislado de ejecución",
+  "s13": "Verificación",
+  "s14": "Supervisión",
+  "s15": "Respuesta ante incidentes",
+  "s16": "Mantenimiento",
+  "s18": "Riesgos residuales"
+}

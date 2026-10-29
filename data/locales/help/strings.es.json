@@ -1,0 +1,14 @@
+{
+  "helpTitle": "Aprende probando.",
+  "helpRole": "Juegas como la persona responsable de un bot de IA compartido. No necesitas saber Linux, escribir código ni configurar un servidor. Elige una respuesta, compruébala y descubre por qué funciona o qué pasaste por alto.",
+  "helpRules": "No hay vidas, temporizadores ni penalizaciones por equivocarte. Usa las pistas libremente. Las misiones de selección múltiple requieren exactamente las opciones seguras. En la misión de orden, toca los pasos en orden; toca uno de nuevo para quitarlo o usa Borrar selección para empezar de nuevo.",
+  "helpPause": "Tómate un descanso cuando quieras. Tus respuestas, comentarios y misiones completadas se guardan en este navegador cuando el almacenamiento está disponible. Elige Guardar y pausar para volver a la pantalla de bienvenida. El recorrido de misiones te permite volver a las lecciones desbloqueadas.",
+  "helpPoints": "Cada misión completada otorga 100 puntos de aprendizaje una sola vez. El progreso no se envía a ningún sitio. Usa Restablecer progreso para eliminarlo.",
+  "helpDisclaimer": "Modelo didáctico, no una auditoría de seguridad: este juego simplifica el PDF en inglés proporcionado, «Hardening a Shared Hermes Agent on Telegram», edición final del 28 de octubre de 2026. Completarlo no configura, verifica ni protege ningún sistema real.",
+  "downloadPdf": "Descargar el PDF original (en inglés)",
+  "helpLimits": "Los despliegues reales deben comprobar la versión y probarse. El juego destaca la contención, el mínimo privilegio y los riesgos restantes, en lugar de tratar cualquier diseño como imposible de romper. No introduzcas aquí claves de API ni tokens de bots reales.",
+  "browse": "Explorar la biblioteca de misiones",
+  "libraryNote": "Versiones de texto de todas las lecciones, legibles sin JavaScript.",
+  "reset": "Restablecer progreso",
+  "resetConfirm": "Pulsa de nuevo para confirmar. Esto solo borra tu progreso del juego."
+}

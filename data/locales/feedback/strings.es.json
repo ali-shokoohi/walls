@@ -1,0 +1,23 @@
+{
+  "whyFails": "Por qué falla esto",
+  "consequence": "Qué podría pasar",
+  "orderProblem": "Problema de orden: «{before}» debe ir antes que «{after}»",
+  "missingStep": "Paso que falta: {title}",
+  "chose": "Elegiste: {title}",
+  "missingProtection": "Protección que falta: {title}",
+  "tryLearn": "Prueba, aprende y ajusta",
+  "breaks": "Aquí es donde falla esta decisión.",
+  "wrongChoiceIntro": "Esta es la suposición de tu respuesta elegida que no se cumple.",
+  "wrongOtherIntro": "Estas son las carencias concretas de tu respuesta enviada.",
+  "exampleNote": "Las consecuencias siguientes son ejemplos, no acciones que ejecute este juego.",
+  "retryNote": "No hay penalización. Cambia tu respuesta y vuelve a poner a prueba tu razonamiento.",
+  "retry": "Probar otra decisión",
+  "missionComplete": "Misión completada",
+  "defenseUnlocked": "Defensa desbloqueada.",
+  "gotIt": "Ya entendiste la idea.",
+  "plainWord": "En palabras sencillas:",
+  "fromPdf": "Del PDF:",
+  "finalOpen": "Abrir mi informe final",
+  "next": "Siguiente misión",
+  "aboutSource": "Sobre la fuente"
+}

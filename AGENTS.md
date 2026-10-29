@@ -40,7 +40,7 @@ guide in the same change. Do not leave contradictory rules across Markdown files
 ## Make changes in the right layer
 
 - Missions: `content/missions/<slug>/index.<language>.md`. Keep English `.en.md`
-  explicit, alongside `.fa.md` and future translations. Front matter is the shared
+  explicit, alongside `.fa.md`, `.es.md` and future translations. Front matter is the shared
   source for interactive and readable lessons; do not duplicate it in prose.
 - Interface copy: `data/locales/<section>/strings.<language>.json`. Preserve key
   and interpolation-placeholder parity across configured languages.
@@ -68,7 +68,7 @@ small change to the owning module over a second implementation or a broad rewrit
   and unlocks must agree with completion state.
 - Wrong answers explain the actual selected decision or omitted safeguard, its
   failed assumption and a concrete consequence. Do not automatically reveal hints.
-- English stays LTR; Persian stays RTL. Load/use Vazirmatn only on Persian pages.
+- English and Spanish stay LTR; Persian stays RTL. Load/use Vazirmatn only on Persian pages.
   Isolate technical tokens safely and escape contributor text before rendering.
 - Language navigation lists actual page translations by native name and retains
   the corresponding lesson URL. Do not restore a hardcoded binary language toggle.
@@ -101,7 +101,7 @@ small change to the owning module over a second implementation or a broad rewrit
    formatting to avoid unrelated churn. Go templates and mission Markdown are
    intentionally excluded from general Prettier formatting.
 
-4. For shared UI changes, inspect English/Persian desktop and narrow-phone layouts,
+4. For shared UI changes, inspect English/Persian/Spanish desktop and narrow-phone layouts,
    keyboard flow and console errors. For documentation-only changes, check links,
    commands against `package.json`, formatting and the diff; do not claim a full
    application test run if you did not perform one.

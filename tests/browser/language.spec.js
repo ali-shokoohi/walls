@@ -12,7 +12,7 @@ test("English stays LTR; Farsi is native RTL with Vazirmatn only on Farsi", asyn
   ).not.toContain("Vazirmatn");
   expect(requests.some((u) => u.toLowerCase().includes("vazirmatn"))).toBe(false);
   await page.locator(".language-picker > summary").click();
-  await page.locator(".language-switch:not([aria-current])").click();
+  await page.locator('.language-switch[hreflang="fa"]').click();
   await expect(page).toHaveURL(/\/fa\/$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "fa-IR");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
@@ -45,7 +45,7 @@ test("English stays LTR; Farsi is native RTL with Vazirmatn only on Farsi", asyn
   await expect(page.locator(".failure-reason")).not.toContainText("This assumes");
   await expect(page.locator("#hintPanel")).toBeHidden();
   await page.locator(".language-picker > summary").click();
-  await page.locator(".language-switch:not([aria-current])").click();
+  await page.locator('.language-switch[hreflang="en"]').click();
   await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
   await expect(page.locator(".feedback.bad")).toContainText("Only a server expert");
 });
@@ -129,7 +129,7 @@ test("readable translated lesson switches to its corresponding English page with
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect(page.locator("h1")).toHaveText("اولین مهمان شما");
   await page.locator(".language-picker > summary").click();
-  await page.locator(".language-switch:not([aria-current])").click();
+  await page.locator('.language-switch[hreflang="en"]').click();
   await expect(page).toHaveURL("http://127.0.0.1:1414/missions/01-invitation/");
   await expect(page.locator("h1")).toHaveText("Your first visitor");
   await context.close();

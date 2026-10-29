@@ -25,7 +25,7 @@ test("language dropdown shows current language and dismisses with Escape or outs
 
 test("language dropdown fits narrow screens in both directions", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
-  for (const path of ["/", "/fa/"]) {
+  for (const path of ["/", "/fa/", "/es/"]) {
     await page.goto(path);
     const picker = page.locator(".language-picker");
     await picker.locator("summary").click();

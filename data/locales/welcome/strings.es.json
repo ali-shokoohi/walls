@@ -1,0 +1,19 @@
+{
+  "introEyebrow": "No necesitas ser experto en servidores.",
+  "intro1": "Un bot pequeño.",
+  "intro2": "Seis muros fuertes.",
+  "intro3": "Tus decisiones.",
+  "introBody": "Conoce a dos amigos, una IA servicial y unos mensajes muy astutos. Crea defensas decisión a decisión y descubre qué ocurre cuando engañan a un bot.",
+  "continue": "Continuar la aventura",
+  "start": "Comenzar la aventura",
+  "introMeta": "{n} misiones breves · Sin código · Sin temporizador · Aquí puedes equivocarte",
+  "protect": "Protege el pequeño mundo del bot.",
+  "meet": "Encuentra un problema.",
+  "meetBody": "Una cuenta robada. Un documento engañoso. Un secreto en el lugar equivocado.",
+  "decide": "Toma una decisión.",
+  "decideBody": "Elige qué permitir, proteger o apagar.",
+  "learn": "Descubre por qué importa.",
+  "learnBody": "Desbloquea una defensa y aprende una idea útil.",
+  "operatorNote": "Puedes aprender las decisiones de quien administra el sistema sin convertirte en esa persona.",
+  "sourceNote": "Basado en la guía de seguridad que proporcionaste. Es un juego de aprendizaje, no un sistema en vivo ni una certificación de seguridad."
+}
