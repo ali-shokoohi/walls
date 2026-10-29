@@ -65,6 +65,30 @@ class HugoBuildTests(unittest.TestCase):
             page = project / 'public/missions/01-invitation/index.html'
             self.assertIn('A newly edited mission', page.read_text())
 
+    def test_language_dropdown_discovers_a_third_locale_and_preserves_lesson_links(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-languages-') as temp:
+            project = Path(temp) / 'site'
+            shutil.copytree(ROOT, project, ignore=shutil.ignore_patterns(
+                '.git', 'node_modules', 'public', 'resources', '__pycache__', 'test-results'))
+            with (project / 'hugo.toml').open('a') as config:
+                config.write("\n[languages.de]\nweight = 3\nlabel = 'Deutsch'\nlocale = 'de-DE'\ndirection = 'ltr'\n")
+            # English copies are a test fixture only, not a published translation.
+            for source in list((project / 'content').rglob('*.en.md')):
+                shutil.copyfile(source, source.with_name(source.name.replace('.en.', '.de.')))
+            for source in list((project / 'data/locales').rglob('strings.en.json')):
+                shutil.copyfile(source, source.with_name('strings.de.json'))
+            result = subprocess.run(['hugo', '--source', str(project), '--panicOnWarning',
+                                     '--baseURL', 'https://example.org/learn/'],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            lesson = (project / 'public/fa/missions/01-invitation/index.html').read_text()
+            picker = re.search(r'<ul class="language-options">(.*?)</ul>', lesson, re.S).group(1)
+            self.assertEqual(len(re.findall(r'<a ', picker)), 3)
+            self.assertIn('href="/learn/de/missions/01-invitation/" lang="de"', picker)
+            self.assertIn('Deutsch', picker)
+            self.assertEqual(picker.count('aria-current="page"'), 1)
+            self.assertIn('hreflang="fa" aria-current="page"', picker)
+
     def test_failure_feedback_is_authored_for_every_possible_gap(self):
         for path in sorted((ROOT / 'content/missions').glob('[0-9]*/index.*.md')):
             mission, _ = json.JSONDecoder().raw_decode(path.read_text())

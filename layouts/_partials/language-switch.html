@@ -1,8 +1,19 @@
 {{- if .Translations -}}
 {{- $strings := partial "translations.html" . -}}
+{{- $current := .Language.Lang -}}
 <nav class="language-nav" aria-label="{{ $strings.language }}">
-  {{ range .Translations }}
-    <a class="quiet language-switch" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" dir="{{ .Language.Direction }}" hreflang="{{ .Language.Lang }}">{{ .Language.Label }}</a>
-  {{ end }}
+  <details class="language-picker">
+    <summary class="quiet">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>
+      <span class="language-label">{{ $strings.language }}</span>
+      <bdi lang="{{ $current }}" dir="{{ .Language.Direction }}">{{ .Language.Label }}</bdi>
+      <svg class="language-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+    </summary>
+    <ul class="language-options">
+      {{ range .AllTranslations }}
+        <li><a class="language-switch" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" dir="{{ .Language.Direction }}" hreflang="{{ .Language.Lang }}"{{ if eq .Language.Lang $current }} aria-current="page"{{ end }}><bdi>{{ .Language.Label }}</bdi>{{ if eq .Language.Lang $current }}<span aria-hidden="true">✓</span>{{ end }}</a></li>
+      {{ end }}
+    </ul>
+  </details>
 </nav>
 {{- end -}}

@@ -1,4 +1,82 @@
 /* Shared interaction and reading ergonomics. */
+.language-nav {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
+.language-picker {
+  position: relative;
+  font-size: 14px;
+}
+.language-picker > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: 9px;
+  cursor: pointer;
+  list-style: none;
+}
+.language-picker > summary::-webkit-details-marker {
+  display: none;
+}
+.language-picker > summary svg {
+  flex: none;
+}
+.language-label {
+  color: var(--muted);
+}
+.language-picker[open] .language-chevron {
+  transform: rotate(180deg);
+}
+.language-options {
+  position: absolute;
+  inset-block-start: calc(100% + 8px);
+  inset-inline-end: 0;
+  z-index: 20;
+  width: max-content;
+  min-width: 190px;
+  max-width: min(280px, calc(100vw - 32px));
+  max-height: min(320px, 55dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.language-options a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 6px;
+}
+.language-options a:hover,
+.language-options a:focus-visible,
+.language-options a[aria-current] {
+  background: var(--green);
+}
+.language-options a[aria-current] {
+  font-weight: bold;
+}
+@media (max-width: 700px) {
+  .language-label {
+    display: none;
+  }
+}
+@media (max-width: 460px) {
+  .language-nav {
+    grid-column: 1 / -1;
+  }
+}
+
 html {
   scroll-padding-block: 24px;
 }

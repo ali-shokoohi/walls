@@ -129,8 +129,8 @@ test("native lesson library and PDF work without JavaScript", async ({ browser }
   await expect(page.locator(".reviewlist a")).toHaveCount(14);
   await page.locator(".reviewlist a").first().click();
   await expect(page.locator("h1")).toHaveText("Your first visitor");
-  await page.locator("summary").click();
-  await expect(page.locator("details")).toContainText(
+  await page.locator("details.starter > summary").click();
+  await expect(page.locator("details.starter")).toContainText(
     "An AI agent is a chatbot with hands",
   );
   const pdf = await context.request.get(

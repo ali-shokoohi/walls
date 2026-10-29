@@ -11,7 +11,8 @@ test("English stays LTR; Farsi is native RTL with Vazirmatn only on Farsi", asyn
     await page.locator("body").evaluate((e) => getComputedStyle(e).fontFamily),
   ).not.toContain("Vazirmatn");
   expect(requests.some((u) => u.toLowerCase().includes("vazirmatn"))).toBe(false);
-  await page.locator(".language-switch").click();
+  await page.locator(".language-picker > summary").click();
+  await page.locator(".language-switch:not([aria-current])").click();
   await expect(page).toHaveURL(/\/fa\/$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "fa-IR");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
@@ -43,7 +44,8 @@ test("English stays LTR; Farsi is native RTL with Vazirmatn only on Farsi", asyn
   await page.locator("#check").click();
   await expect(page.locator(".failure-reason")).not.toContainText("This assumes");
   await expect(page.locator("#hintPanel")).toBeHidden();
-  await page.locator(".language-switch").click();
+  await page.locator(".language-picker > summary").click();
+  await page.locator(".language-switch:not([aria-current])").click();
   await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
   await expect(page.locator(".feedback.bad")).toContainText("Only a server expert");
 });
@@ -114,7 +116,7 @@ test("Farsi mirrors answer controls and isolates technical tokens without execut
     page.locator(".failure-consequence bdi").filter({ hasText: "api.telegram.org" }),
   ).toHaveCount(1);
   await page.goto("/fa/missions/05-network/");
-  await page.locator("summary").click();
+  await page.locator("details.starter > summary").click();
   expect(await page.locator('bdi[dir="ltr"]').count()).toBeGreaterThan(0);
 });
 
@@ -126,7 +128,8 @@ test("readable translated lesson switches to its corresponding English page with
   await page.goto("http://127.0.0.1:1414/fa/missions/01-invitation/");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect(page.locator("h1")).toHaveText("اولین مهمان شما");
-  await page.locator(".language-switch").click();
+  await page.locator(".language-picker > summary").click();
+  await page.locator(".language-switch:not([aria-current])").click();
   await expect(page).toHaveURL("http://127.0.0.1:1414/missions/01-invitation/");
   await expect(page.locator("h1")).toHaveText("Your first visitor");
   await context.close();

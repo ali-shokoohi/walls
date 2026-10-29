@@ -44,6 +44,23 @@ start`) so shared layout follows document direction.
   numbers; do not localize the actual numeric answer indexes in JSON.
 - Verify mixed-direction strings in answer feedback as well as the first screen.
 
+## Language dropdown
+
+The header shows the current language inside a compact disclosure. Opening it
+lists available translations by native name, in Hugo language-weight order, with
+a checkmark and `aria-current="page"` for the current page. No flags or hardcoded
+English/Persian toggle is used.
+
+The picker uses `.AllTranslations`, so a newly translated page appears without
+editing the component. It links to the corresponding lesson, not the homepage;
+languages without a translation of that page are not offered. The scrollable
+list stays bounded on phones and follows the document's LTR/RTL direction.
+
+Native `<details>` and ordinary links work without JavaScript. A small shared
+module adds Escape-to-close with focus return, outside-click dismissal, and
+closing when keyboard focus leaves. Enter/Space opens the disclosure; Tab moves
+through links. It is a navigation disclosure, not an ARIA application menu.
+
 ## Adding a third language
 
 1. Add its Hugo `[languages.<code>]` entry with `locale`, `label`, `direction`,
