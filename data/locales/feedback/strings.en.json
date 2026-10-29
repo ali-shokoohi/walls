@@ -1,0 +1,23 @@
+{
+  "whyFails": "Why this fails",
+  "consequence": "What could happen",
+  "orderProblem": "Order problem: “{before}” must come before “{after}”",
+  "missingStep": "Missing step: {title}",
+  "chose": "You chose: {title}",
+  "missingProtection": "Missing protection: {title}",
+  "tryLearn": "Try, learn, adjust",
+  "breaks": "Here’s where this decision breaks.",
+  "wrongChoiceIntro": "This is the assumption in your chosen answer that does not hold.",
+  "wrongOtherIntro": "These are the specific gaps in your submitted answer.",
+  "exampleNote": "The consequences below are examples, not actions run by this game.",
+  "retryNote": "There is no penalty. Change your answer and test your reasoning again.",
+  "retry": "Try another decision",
+  "missionComplete": "Mission complete",
+  "defenseUnlocked": "Defense unlocked.",
+  "gotIt": "You’ve got the idea.",
+  "plainWord": "Plain-language word:",
+  "fromPdf": "From the PDF:",
+  "finalOpen": "Open my final briefing",
+  "next": "Next mission",
+  "aboutSource": "About the source"
+}

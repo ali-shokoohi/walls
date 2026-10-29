@@ -1,0 +1,5 @@
+export function renderWelcome({ missions, store, i18n }) {
+  const { tr, num, forward: FORWARD } = i18n;
+  const state = store.state;
+  return `<section class="intro"><div><div class="label muted">${tr("introEyebrow")}</div><h1>${tr("intro1")}<br>${tr("intro2")}<br>${tr("intro3")}</h1><p>${tr("introBody")}</p><button class="primary" id="start">${tr(state.started ? "continue" : "start")} ${FORWARD}</button><p class="subnote">${tr("introMeta", { n: num(missions.length) })}</p></div><div class="starter"><div class="botface" aria-hidden="true"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span><div class="bot"><span class="eye"></span><span class="eye"></span><span class="mouth"></span></div></div><div class="body"><h2>${tr("protect")}</h2><ol><li><strong>${tr("meet")}</strong> ${tr("meetBody")}</li><li><strong>${tr("decide")}</strong> ${tr("decideBody")}</li><li><strong>${tr("learn")}</strong> ${tr("learnBody")}</li></ol></div><div class="footer">${tr("operatorNote")}</div></div></section><div class="footerline">${tr("sourceNote")}</div>`;
+}

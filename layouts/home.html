@@ -1,10 +1,13 @@
 {{ define "head" }}
-  {{ $js := resources.Get "js/game.js" | minify | fingerprint "sha256" }}
-  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+  {{ $options := dict "targetPath" "js/game.js" "format" "esm" "target" "es2020" "minify" hugo.IsProduction }}
+  {{ $js := resources.Get "js/main.js" | js.Build $options | fingerprint "sha256" }}
+  <script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
 {{ end }}
 {{ define "body" }}
+  {{ $u := partial "translations.html" . }}
   {{ partial "header.html" . }}
-  <main id="app" tabindex="-1"><noscript><section class="outro"><h1>Small Bot, Strong Walls</h1><p>The interactive game needs JavaScript. You can still <a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">read every lesson in the mission library</a>.</p></section></noscript></main>
+  <main id="app" tabindex="-1"><noscript><section class="outro"><h1>{{ site.Title }}</h1><p>{{ $u.needsJs }} <a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">{{ $u.readLessons }}</a>.</p></section></noscript></main>
   {{ partial "dialogs.html" . }}
+  <script id="game-ui" type="application/json">{{ partial "translations.html" . | jsonify | safeJS }}</script>
   <script id="mission-data" type="application/json">{{ partial "missions-data.html" . | jsonify | safeJS }}</script>
 {{ end }}

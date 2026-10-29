@@ -1,0 +1,14 @@
+{
+  "helpTitle": "Learn by trying.",
+  "helpRole": "You play the owner of a shared AI bot. You do not need to know Linux, write code, or set up a server. Choose an answer, check it, and see why it works—or what you missed.",
+  "helpRules": "There are no lives, timers, or penalties for a wrong answer. Use hints freely. Multi-select missions require exactly the safe choices. In the ordering mission, tap steps in order; tap again to remove one, or use Clear selection to start over.",
+  "helpPause": "Take a break anytime. Your answers, feedback, and completed missions are saved in this browser when storage is available. Choose Save & pause to return to the welcome screen. Mission trail lets you revisit unlocked lessons.",
+  "helpPoints": "Each completed mission awards 100 learning points once. Progress is not sent anywhere. Use Reset progress to remove it.",
+  "helpDisclaimer": "Teaching model, not a security audit: this game simplifies the supplied Hardening a Shared Hermes Agent on Telegram PDF, final edition 28 October 2026. Completing it does not configure, verify, or secure any real system.",
+  "downloadPdf": "Download the original PDF (English)",
+  "helpLimits": "Real deployments must be version-checked and tested. The game emphasizes containment, least privilege, and remaining risks rather than treating any design as unbreakable. Never enter real API keys or bot tokens here.",
+  "browse": "Browse the mission library",
+  "libraryNote": "Text versions of every lesson, readable without JavaScript.",
+  "reset": "Reset progress",
+  "resetConfirm": "Press again to confirm. This only clears your game progress."
+}

@@ -1,11 +1,27 @@
 baseURL = 'https://example.org/'
-locale = 'en-US'
 title = 'Small Bot, Strong Walls'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term', 'RSS']
 
-[params]
-  description = 'Learn AI bot security through 14 forgiving story missions. No coding, timers, or server experience required.'
+[languages.en]
+  weight = 1
+  label = 'English'
+  locale = 'en-US'
+  direction = 'ltr'
+  title = 'Small Bot, Strong Walls'
+  [languages.en.params]
+    description = 'Learn AI bot security through 14 forgiving story missions. No coding, timers, or server experience required.'
+
+[languages.fa]
+  weight = 2
+  label = 'فارسی'
+  locale = 'fa-IR'
+  direction = 'rtl'
+  title = 'ربات کوچک، دیوارهای محکم'
+  [languages.fa.params]
+    description = 'امنیت ربات هوش مصنوعی را با ۱۴ مأموریت داستانی یاد بگیر؛ بدون نیاز به کدنویسی، زمان‌سنج یا تجربهٔ مدیریت سرور.'
 
 [module.hugoVersion]
   min = '0.158.0'

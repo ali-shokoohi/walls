@@ -2,14 +2,21 @@
   "name": "small-bot-strong-walls",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Beginner security learning game built with Hugo and vanilla JavaScript",
   "scripts": {
     "dev": "hugo server --bind 127.0.0.1 --port 1313",
     "build": "hugo --minify --cleanDestinationDir",
     "test": "playwright test",
-    "test:build": "python3 -m unittest discover -s tests -p 'test_*.py' -v"
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:build": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+    "validate": "python3 scripts/validate.py",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run validate && npm run format:check && npm run test:unit && npm run test:build && npm test"
   },
   "devDependencies": {
-    "@playwright/test": "1.64.1"
+    "@playwright/test": "1.64.1",
+    "prettier": "3.9.5"
   }
 }

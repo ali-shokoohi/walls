@@ -1,18 +1,24 @@
+{{- $u := partial "translations.html" . -}}
 <!doctype html>
-<html lang="{{ site.Language.Locale | default "en" }}">
+<html lang="{{ site.Language.Locale }}" dir="{{ site.Language.Direction }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>{{ if .IsHome }}{{ site.Title }} — A Security Adventure{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  <title>{{ if .IsHome }}{{ site.Title }} — {{ $u.adventure }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Description | default site.Params.description }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  {{ $css := resources.Get "css/game.css" | minify | fingerprint "sha256" }}
-  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+  {{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">{{ end }}
+  {{ if eq site.Language.Lang "fa" }}
+    <link rel="preload" href="{{ "fonts/Vazirmatn-Variable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+    {{ $fa := resources.Get "css/farsi.css" | resources.ExecuteAsTemplate "css/farsi.css" . | minify | fingerprint "sha256" }}
+    <link rel="stylesheet" href="{{ $fa.RelPermalink }}" integrity="{{ $fa.Data.Integrity }}" crossorigin="anonymous">
+  {{ end }}
+  {{ partial "styles.html" . }}
   {{ block "head" . }}{{ end }}
 </head>
 <body>
-  <a class="skip-link" href="#app">Skip to content</a>
+  <a class="skip-link" href="#app">{{ $u.skip }}</a>
   {{ block "body" . }}{{ end }}
 </body>
 </html>

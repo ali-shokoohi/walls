@@ -1,0 +1,44 @@
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media print {
+  .mission-nav,
+  .selection-tools,
+  .answer-meta,
+  .skip-link,
+  header,
+  .tools,
+  .actions,
+  .quiet,
+  .primary,
+  aside {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .outro {
+    margin: 0;
+  }
+  .certificate {
+    background: #fff;
+    color: #000;
+    border: 1px solid;
+  }
+  .certificate p,
+  .certificate span,
+  .certificate b {
+    color: #000;
+  }
+  .takeaways {
+    display: block;
+  }
+  .takeaways section {
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+}

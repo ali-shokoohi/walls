@@ -1,0 +1,15 @@
+:root {
+  --paper: #f5f1e7;
+  --card: #fffdf8;
+  --ink: #1f3434;
+  --muted: #5b6d67;
+  --line: #d6ded1;
+  --accent: #176849;
+  --green: #dcecd5;
+  --gold: #f4c361;
+  --night: #152d30;
+  --night2: #203c40;
+  --light: #edf5ec;
+  --red: #a13c30;
+  --shadow: 0 12px 34px #243d2910;
+}

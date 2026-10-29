@@ -1,0 +1,19 @@
+{
+  "introEyebrow": "You don’t need to be a server expert.",
+  "intro1": "A small bot.",
+  "intro2": "Six strong walls.",
+  "intro3": "Your decisions.",
+  "introBody": "Meet two friends, a helpful AI, and a few very sneaky messages. Build defenses one choice at a time—and find out what happens when a bot gets fooled.",
+  "continue": "Continue your adventure",
+  "start": "Start your adventure",
+  "introMeta": "{n} short missions · No code · No timer · Mistakes welcome",
+  "protect": "Protect the bot’s little world.",
+  "meet": "Meet a problem.",
+  "meetBody": "A stolen account. A tricky document. A secret in the wrong place.",
+  "decide": "Make a decision.",
+  "decideBody": "Choose what to allow, protect, or shut down.",
+  "learn": "See why it matters.",
+  "learnBody": "Unlock a defense and learn a useful idea.",
+  "operatorNote": "You can learn the operator’s choices without becoming an operator.",
+  "sourceNote": "Based on your supplied security guide. This is a learning game, not a live system or a security certification."
+}

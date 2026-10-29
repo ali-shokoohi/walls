@@ -1,0 +1,11 @@
+node_modules/
+public/
+resources/
+test-results/
+playwright-report/
+# Hugo Go templates need a template-aware formatter, not the HTML parser.
+layouts/
+# JSON front matter in Markdown must not be reinterpreted as Markdown text.
+content/
+static/
+package-lock.json

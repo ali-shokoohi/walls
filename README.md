@@ -1,221 +1,145 @@
-# Small Bot, Strong Walls — Hugo edition
+# Small Bot, Strong Walls
 
-A beginner-friendly, 14-mission security learning game based on the supplied
-*Hardening a Shared Hermes Agent on Telegram* PDF (28 October 2026 edition).
+A bilingual **Hugo** learning game about sharing an AI agent safely: 14 short
+story missions, forgiving retries, choice-specific feedback, a wordbook, and saved
+progress. No coding or server experience is needed to play.
 
-This is a real Hugo site: the game data is generated from editable Markdown
-lesson pages, CSS/JavaScript pass through Hugo's asset pipeline, and every
-mission also has a readable page. No external theme, CDN, API, framework, or
-runtime server is required after the build.
+- **English:** `/`, left-to-right, original fonts.
+- **فارسی:** `/fa/`, right-to-left, locally hosted **Vazirmatn only on Persian pages**.
+- A readable mission library works without JavaScript.
+- Everything deploys as static files; no backend, analytics, CDN, or runtime API.
 
-**This is a teaching model, not a live security audit or a certification.**
-It does not run commands, request credentials, or change any real bot settings.
+This is a teaching model, **not a security audit or certification**. It does not
+run commands, request real credentials, or change a real bot. The original PDF
+(_Hardening a Shared Hermes Agent on Telegram_, 28 October 2026) is included for
+comparison and remains English.
 
-## Run it
+## Preview
 
-Install [Hugo](https://gohugo.io/installation/) **0.158.0 or newer**.
-Tested with Hugo **0.167.0**. Standard Hugo is sufficient; Extended is not required.
-
-From this directory:
+Install [Hugo](https://gohugo.io/installation/) **0.158+** (verified with **0.167.0**).
+Standard Hugo is sufficient; Extended and npm are not required to build/play.
 
 ```sh
 hugo server --bind 127.0.0.1 --port 1313
 ```
 
-Open **http://localhost:1313/**. Hugo watches lesson, layout, and asset changes.
-Node.js and npm are **not** needed to run or build the site.
+Open **http://localhost:1313/** or **http://localhost:1313/fa/**.
+
+## Contribute
+
+Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**. Content, translation, and code
+changes each have a small, clearly owned place:
+
+```text
+content/
+  _index.en.md                  # English homepage
+  _index.fa.md                  # Persian homepage
+  missions/
+    _index.en.md                # English mission library
+    _index.fa.md                # Persian mission library
+    01-invitation/
+      index.en.md               # One mission, English
+      index.fa.md               # Same mission, Persian
+    ...
+data/locales/
+  welcome/strings.en.json       # Welcome-section interface strings
+  welcome/strings.fa.json
+  mission/strings.en.json       # Other sections follow the same convention
+  mission/strings.fa.json
+  ...
+assets/js/
+  main.js                       # ES module entry; imports app and locale helpers
+  app.js                        # Screen/event orchestration
+  core/                         # Pure rules, i18n, persistence
+  views/                        # Welcome, mission, feedback, trail, briefing markup
+  ui/                           # DOM/focus/dialog helpers and notes download
+assets/css/                     # Tokens, base, components, interaction, responsive, a11y
+layouts/                        # Hugo shell, shared partials, readable lesson pages
+scripts/validate.py             # Dependency-free content/translation preflight
+ tests/                         # Node unit, Playwright, Python/Hugo tests
+ docs/                          # Focused contributor guides
+```
+
+- [Architecture and ownership](docs/architecture.md)
+- [Writing missions and wrong-answer feedback](docs/content-authoring.md)
+- [Translations, language files, and RTL](docs/translations.md)
+- [Verification report](VERIFICATION.md)
+
+The game uses actual ES `import`/`export` modules. Hugo's built-in `js.Build`
+bundles them into a fingerprinted `type="module"` script. Shared answer rules,
+choice markers, sequence labels, feedback diagnosis and translation data have one
+owner rather than separate implementations. CSS is concatenated in a fixed order,
+not loaded through a chain of runtime CSS imports.
+
+## Development checks
+
+Use Python **3.11+**, Node **24+** (see `.nvmrc`), and Hugo:
+
+```sh
+npm ci
+npx playwright install chromium
+npm run check
+```
+
+Useful focused commands:
+
+```sh
+python3 scripts/validate.py    # No npm dependencies needed
+npm run format                # Uses the pinned formatter
+npm run test:unit             # Pure helpers, no browser
+npm run test:build            # Python schema/validator and real Hugo builds
+npm test                      # Playwright starts Hugo on loopback port 1414
+```
+
+To use an existing Chromium binary, set `CHROMIUM_PATH` to its actual path, for
+example `CHROMIUM_PATH=/usr/bin/chromium npm run check`. Node tooling is for
+contributors/tests only. No npm packages are loaded by the deployed game.
 
 ## Build and deploy
 
-Set `baseURL` in `hugo.toml` to your real public URL, including any subpath.
-For example:
-
-```toml
-baseURL = 'https://your-domain.example/learn/'
-```
-
-Then build:
+Set `baseURL` in `hugo.toml` to your real URL, including any subpath, then build:
 
 ```sh
-hugo --minify --cleanDestinationDir
+hugo --minify --cleanDestinationDir --panicOnWarning
 ```
 
-Or override the URL for one build:
+Or override it for one build:
 
 ```sh
 hugo --minify --cleanDestinationDir --baseURL https://your-domain.example/learn/
 ```
 
-Publish the **contents of `public/`** to a static host. For a subpath deployment,
-serve those files at that same subpath. Assets, navigation, and the PDF use Hugo
-URLs that respect the configured `baseURL` path. No SPA fallback is needed.
+Publish the **contents of `public/`** at that URL. The checked-in configuration
+uses `https://example.org/` as a placeholder; rebuild before public publication.
+Language switches, fonts, CSS, scripts and the PDF respect the configured subpath.
+No SPA fallback or runtime server is required on the static host.
 
-The included prebuilt output uses the placeholder `https://example.org/` for
-canonical links and sitemap entries. Rebuild with your real URL before public
-publication. Nothing has been deployed to a remote host.
-
-For a local preview of a root-path static build:
+Preview a production build locally with:
 
 ```sh
 python3 -m http.server 8080 --bind 127.0.0.1 --directory public
 ```
 
-Use HTTP rather than double-clicking `public/index.html`: generated asset URLs
-and directory URLs assume a web server. The original single-file HTML version
-remains the portable file-opening version.
+Use HTTP, not double-clicking `public/index.html`: generated assets and directory
+URLs assume a web server. Generated files are ignored by Git; edit source instead.
+No remote deployment is performed by local build commands.
 
-## Project structure
+## Progress and privacy
 
-```text
-hugo.toml                        Site URL, title, description, Hugo minimum
-content/
-  _index.md                      Homepage content metadata
-  missions/
-    _index.md                    Mission library introduction
-    01-invitation.md             One Markdown file per mission
-    ...
-    14-final.md
-layouts/
-  baseof.html                    Shared document, metadata, CSS pipeline
-  home.html                      Interactive game and generated mission JSON
-  section.html                   No-JavaScript mission library
-  page.html                      Readable mission page
-  404.html
-  _partials/
-    header.html                  Site header
-    dialogs.html                 Help, source, wordbook, confirmed reset
-    missions-data.html           Ordered mission pages → game data
-assets/
-  css/game.css                   Responsive visual design
-  js/game.js                     Vanilla JS game logic; no dependencies
-static/downloads/
-  hermes-security-guide-original.pdf
-playwright.config.cjs            Browser-test configuration
-package.json / package-lock.json Optional, pinned browser-test dependency
- tests/                         Build and browser regression tests
-```
+Completed mission IDs, the current draft, feedback and paused/final screen stay
+in this browser under `hermes-security-adventure-v1`. Language switching shares
+progress because both translations use the same canonical IDs and answer indexes.
+The game does not transmit progress. Your static host may still log normal page
+requests according to its own policy.
 
-Hugo minifies and fingerprints CSS/JavaScript, with integrity attributes. The
-original PDF is a normal downloadable static file, not a base64 blob in the JS.
-A JavaScript-disabled browser can read the mission library and explanations.
+Reset requires confirmation. Replaying cannot farm points. Only the current
+mission's draft is retained; moving to another lesson starts a fresh selection.
+The notes export is a text summary, not an importable progress backup. Progress
+does not automatically move between browsers, origins, or devices.
 
-## Edit a mission
+## Third-party material
 
-Edit `content/missions/01-invitation.md`, or another mission file. Each starts
-with **JSON front matter**, followed by Markdown. JSON is intentional: nested
-choices, answer arrays, and explanations remain explicit and easy to validate.
-Hugo reads this as normal content front matter.
-
-Key fields:
-
-| Field | Purpose |
-|---|---|
-| `id` | Stable identifier used for saved progress; do not casually rename |
-| `weight` | Mission order; use unique ascending integers |
-| `title`, `chapter`, `goal` | Heading and learning objective |
-| `scene`, `speaker`, `message` | The story situation |
-| `task` | Question or decision |
-| `challenge_type` | `choice`, `multi`, or `order` |
-| `options` | Objects containing a `title`, `detail`, and authored `feedback` where an incorrect choice or omission needs explanation |
-| `answer` | **Zero-based** option indexes; order matters for `order` only |
-| `options[].feedback` | `reason` (the assumption or safeguard that fails) and `consequence` (a concrete counterexample); required on wrong single choices and every multi/order option |
-| `order_rules` | For ordering missions: adjacent prerequisite pairs with zero-based `before`, `after`, `reason`, and `consequence` |
-| `success`, `lesson`, `why` | Correct-answer explanation and takeaways |
-| `term` | Object with `word` and `meaning` for the wordbook |
-| `source` | PDF section identifier, e.g. `s13` |
-| `reward` | Learning achievement label |
-| `unlocks` | Learned defense concepts; empty array if none |
-
-The six collection labels are `Host`, `Isolation`, `Network`, `Secrets`,
-`Hermes`, and `Sandbox`. A mission's `unlocks` values should match these labels.
-These are learned concepts, **not actual security status**.
-
-The interactive game is generated from front matter. The prose after the JSON
-is available for Hugo content use; the current readable template uses the same
-front-matter explanations as the game to keep them synchronized.
-
-To add a mission, copy an existing file, choose a unique `id`, adjust `weight`,
-and update its fields. The game computes the mission count and score from the
-content. Tests currently expect the supplied 14-mission curriculum; update that
-expectation deliberately if the curriculum changes. Static introductory copy
-(e.g. the site description) can be edited in `hugo.toml` or the layouts.
-
-Hugo's pretty URLs use the filename, such as
-`/missions/01-invitation/`. Renaming a file changes its readable-page URL.
-
-## Responsive layout and learning controls
-
-- Phones and tablets up to 1000px use a full-width mission; desktop keeps a
-  secondary progress sidebar. Mission trail opens the complete, named lesson list
-  on every screen size, with completed, current, and locked states.
-- Select answers without recreating the question, losing keyboard focus, or
-  jumping the page. A live selection count and Clear selection make multi-choice
-  and ordering tasks easier to follow.
-- Save & pause preserves your current mission. Answers and feedback survive a
-  reload, and finishing the game restores the final briefing instead of asking
-  you to solve the last mission again. Only the current mission's draft is kept;
-  moving to a different mission starts that mission with a fresh selection.
-- Wrong answers explain the submitted choice, its failed assumption, and a concrete consequence instead of printing the lesson as a hint. Multi-select feedback distinguishes unsafe extras from missing protections; ordering feedback diagnoses broken prerequisites and omitted steps. Correct selections are not mislabeled as wrong.
-- Hints remain optional and collapse on submission. Reduced-motion preferences also apply to retry scrolling.
-- Wordbook, Help, and Mission trail use named dialogs, keyboard Escape, focus
-  restoration, and reachable sticky close controls on short screens.
-- Keyboard users can skip directly to the content. Navigation targets are at least
-  44px high, and answer explanations use a minimum 14px text size.
-
-## Learner data and privacy
-
-Progress is saved only in this browser's `localStorage`, under
-`hermes-security-adventure-v1`. The game does not transmit it. There is no
-analytics script or remote font dependency. Loading the site still involves
-normal hosting requests and whatever access logging your chosen host performs.
-
-Progress survives reloads but is scoped to the browser and origin. Moving from
-a local HTML file to a hosted site does not automatically transfer old progress.
-The notes export saves a text summary, not an importable game-state backup.
-
-Reset requires two clicks. A successful replay cannot farm points. Keep stable
-mission IDs across content edits. A significantly changed curriculum may warrant
-a new storage key in `assets/js/game.js`.
-
-## Tests
-
-Build tests need Hugo and Python 3 only:
-
-```sh
-python3 -m unittest discover -s tests -p 'test_*.py' -v
-```
-
-Browser tests additionally need Node.js/npm and Playwright Chromium:
-
-```sh
-npm ci
-npx playwright install chromium
-npm test
-```
-
-Or use an existing Chromium installation:
-
-```sh
-CHROMIUM_PATH=/usr/bin/chromium npm test
-```
-
-`CHROMIUM_PATH` must be the actual executable on your system. The tests launch
-Hugo automatically on loopback port **1414**; leave that port free. Dev preview
-uses port **1313**. No external service is required during tests after installing
-the test dependencies/browser.
-
-Coverage includes all missions and the final screen, wrong-answer retries,
-unsafe multi-selects, incorrect ordering, point deduplication, reload recovery,
-hints, dialogs, confirmed reset, notes download, all missions at 320px width,
-44px mission navigation targets, readable lessons without JavaScript, the PDF,
-real Hugo builds, subpath URLs, and a content edit reaching both renderings.
-
-The core build and play paths have no npm dependency. npm is for testing only.
-
-## Source material
-
-The original PDF is included under `static/downloads/` for comparison. Security
-claims depend on actual versions, configuration, verification, and threat model.
-The game explains limits and ordinary-user habits instead of promising an
-unbreakable or fully private service. No license or ownership claim is made for
-the supplied document; check your permission before publishing it publicly.
+The font's OFL license and pinned source are under `static/fonts/`. No ownership
+or redistribution license is invented for the supplied PDF; check permission
+before publishing third-party material. The game describes containment goals and
+remaining privacy/security risks, not a promise of invulnerability.

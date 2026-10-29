@@ -8,12 +8,17 @@
 
 ## Results
 
-- 4 Python/Hugo integration/content tests passed:
+- Contributor preflight passed: `Validated 14 missions, 2 locales, 8 translation sections.`
+- `npm run format:check` passed using the pinned Prettier version.
+- 6 Node unit tests passed for answer rules, wrong-answer diagnosis, escaping/RTL isolation, legacy state normalization, and browser-independent English/Persian view rendering.
+- 18 Python validation/structure/Hugo tests passed (including 6 Hugo integration/content tests):
   - A real Hugo build publishes the game, 14 ordered missions, and local assets.
   - A minified subpath build keeps local asset/navigation URLs under `/learn/`.
   - Editing a Markdown mission changes both game data and the readable lesson page.
   - Every wrong choice or omitted safeguard has authored reasoning and a concrete consequence; ordering rules cover the prerequisite chain.
-- 18 Playwright browser tests passed:
+  - English/Farsi translation keys and mission invariants match; stable IDs, option order and answer indexes are preserved.
+  - Farsi subpath assets and translated lesson links resolve to generated files.
+- 22 Playwright browser tests passed:
   - All 14 missions, final screen, wrong-answer retry, scoring, notes download, and no duplicate replay points.
   - Progress recovery after a real page reload.
   - Unsafe extra multi-select answers and incorrect ordering rejected.
@@ -30,13 +35,17 @@
   - Every wrong single-choice answer renders its own explanation, not the general lesson/hint.
   - Optional hints collapse on submission; wrong-answer reasoning survives reloads.
   - Multi-select feedback identifies unsafe extras and missing protections without criticizing safe selections.
-  - Ordering feedback explains broken prerequisites and missing steps.
-- Production smoke test passed using Hugo's minified output served at `/learn/`:
-  - First mission completed, 100 points awarded.
-  - 14-entry mission library available.
-  - Original PDF returned HTTP 200.
+  - Wrong-answer reasoning, bilingual content, and correct language selection on English/Farsi pages.
+  - Farsi RTL layout, self-hosted Vazirmatn loading, LTR isolation for technical tokens, and 320px Farsi mission flow.
+- Production smoke test passed using Hugo's imported, bundled ES module output served at `/learn/`:
+  - One fingerprinted `type="module"` script initializes the game without global compatibility shims.
+  - First mission completed; language switching preserved checked feedback.
+  - English/Persian bundle URLs and their translation links remained unchanged.
+  - Persian font, direction and technical-token isolation remained functional.
   - No JavaScript page errors.
-- Visual inspection passed for desktop and 390px mobile screenshots of the Hugo-rendered game.
+- Refactor before/after screenshots were pixel-identical for English and Persian at 390px and 1440px widths.
+- Contributor workflow, PR checklist, formatting configuration and focused architecture/content/translation guides are included. GitHub Actions configuration was added but no remote workflow run or deployment was performed.
+- Visual inspection passed for desktop, tablet, and 390px mobile Persian screenshots, including RTL layout and readable lesson pages.
 - Production Hugo build completed without warnings; JavaScript syntax check passed.
 
 ## Scope and limits

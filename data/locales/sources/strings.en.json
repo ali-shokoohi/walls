@@ -1,0 +1,15 @@
+{
+  "s1": "Summary and Verdict",
+  "s2": "Threat Model",
+  "s7": "Layer 1: Host Hardening",
+  "s8": "Layer 2: Execution Isolation",
+  "s9": "Layer 3: Network Isolation",
+  "s10": "Layer 4: Secrets",
+  "s11": "Layer 5: Hardening Hermes",
+  "s12": "Layer 6: Execution Sandbox",
+  "s13": "Verification",
+  "s14": "Monitoring",
+  "s15": "Incident Response",
+  "s16": "Maintenance",
+  "s18": "Residual Risks"
+}

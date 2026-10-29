@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "Vazirmatn";
+  src: url('{{ "fonts/Vazirmatn-Variable.woff2" | relURL }}') format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+html[lang^="fa"] body,
+html[lang^="fa"] h1,
+html[lang^="fa"] h2,
+html[lang^="fa"] h3,
+html[lang^="fa"] h4,
+html[lang^="fa"] button,
+html[lang^="fa"] input,
+html[lang^="fa"] select,
+html[lang^="fa"] textarea,
+html[lang^="fa"] .speech blockquote,
+html[lang^="fa"] .facts b,
+html[lang^="fa"] .feedback h3,
+html[lang^="fa"] .takeaways h3,
+html[lang^="fa"] .brandmark {
+  font-family: "Vazirmatn", sans-serif;
+  font-style: normal;
+}
+html[lang^="fa"] body {
+  line-height: 1.9;
+}
+html[lang^="fa"] h1,
+html[lang^="fa"] h2,
+html[lang^="fa"] h3 {
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+html[lang^="fa"] .label,
+html[lang^="fa"] .speech small,
+html[lang^="fa"] .worldline,
+html[lang^="fa"] .failure-label,
+html[lang^="fa"] .reward {
+  letter-spacing: 0;
+  text-transform: none;
+}
+html[lang^="fa"] .intro h1 {
+  max-width: none;
+  font-size: clamp(34px, 4.3vw, 58px);
+}
+html[lang^="fa"] .speech blockquote {
+  line-height: 1.9;
+}
+html[lang^="fa"] .brand b {
+  line-height: 1.7;
+}
+html[lang^="fa"] .replay-heading {
+  font-family: "Vazirmatn", sans-serif;
+}

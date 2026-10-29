@@ -1,0 +1,13 @@
+{{- /* Merge section-owned dictionaries; duplicate keys are contributor errors. */ -}}
+{{- $language := site.Language.Lang -}}
+{{- $strings := dict -}}
+{{- range $section, $translations := hugo.Data.locales -}}
+  {{- $key := printf "strings.%s" $language -}}
+  {{- $part := index $translations $key -}}
+  {{- if not $part -}}{{- errorf "Missing %s in data/locales/%s" $key $section -}}{{- end -}}
+  {{- range $name, $value := $part -}}
+    {{- if isset $strings $name -}}{{- errorf "Duplicate translation key %s in section %s" $name $section -}}{{- end -}}
+    {{- $strings = merge $strings (dict $name $value) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $strings -}}

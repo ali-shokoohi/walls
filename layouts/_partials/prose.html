@@ -1,0 +1,12 @@
+{{- /* Tokenize before escaping: never split an escaped HTML entity. */ -}}
+{{- $value := printf "%v" . -}}
+{{- if eq site.Language.Lang "fa" -}}
+  {{- $result := "" -}}
+  {{- range findRE `https?://[^\s،؛«»]+|[A-Za-z][A-Za-z0-9_]*(?:[.:/_-][A-Za-z0-9_]+)*|[0-9]+(?:[.:/-][0-9]+)*|[^A-Za-z0-9]+` $value -}}
+    {{- $part := htmlEscape . -}}
+    {{- if findRE `^[A-Za-z0-9]` . -}}{{- $part = printf `<bdi dir="ltr">%s</bdi>` $part -}}{{- end -}}
+    {{- $result = printf "%s%s" $result $part -}}
+  {{- end -}}
+  {{- return ($result | safeHTML) -}}
+{{- end -}}
+{{- return ($value | htmlEscape | safeHTML) -}}

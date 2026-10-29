@@ -1,0 +1,7 @@
+{{- /* Source order is intentional; no runtime CSS import waterfall. */ -}}
+{{- $styles := slice -}}
+{{- range slice "tokens" "base" "components" "interactions" "responsive" "accessibility" -}}
+  {{- $styles = $styles | append (resources.Get (printf "css/%s.css" .)) -}}
+{{- end -}}
+{{- $css := $styles | resources.Concat "css/game.css" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">

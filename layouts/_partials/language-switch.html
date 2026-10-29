@@ -1,0 +1,8 @@
+{{- if .Translations -}}
+{{- $strings := partial "translations.html" . -}}
+<nav class="language-nav" aria-label="{{ $strings.language }}">
+  {{ range .Translations }}
+    <a class="quiet language-switch" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" dir="{{ .Language.Direction }}" hreflang="{{ .Language.Lang }}">{{ .Language.Label }}</a>
+  {{ end }}
+</nav>
+{{- end -}}

@@ -55,7 +55,7 @@ class HugoBuildTests(unittest.TestCase):
             project = Path(temp) / 'site'
             shutil.copytree(ROOT, project, ignore=shutil.ignore_patterns(
                 'node_modules', 'public', 'resources', '__pycache__', 'test-results'))
-            mission = project / 'content/missions/01-invitation.md'
+            mission = project / 'content/missions/01-invitation/index.en.md'
             text = mission.read_text().replace('Your first visitor', 'A newly edited mission')
             mission.write_text(text)
             result = subprocess.run(['hugo', '--source', str(project), '--panicOnWarning'],
@@ -66,7 +66,7 @@ class HugoBuildTests(unittest.TestCase):
             self.assertIn('A newly edited mission', page.read_text())
 
     def test_failure_feedback_is_authored_for_every_possible_gap(self):
-        for path in sorted((ROOT / 'content/missions').glob('[0-9]*.md')):
+        for path in sorted((ROOT / 'content/missions').glob('[0-9]*/index.*.md')):
             mission, _ = json.JSONDecoder().raw_decode(path.read_text())
             answer = mission['answer']
             for i, option in enumerate(mission['options']):
@@ -80,6 +80,51 @@ class HugoBuildTests(unittest.TestCase):
                 self.assertEqual([(r['before'], r['after']) for r in rules], list(zip(answer, answer[1:])))
                 for rule in rules:
                     self.assertTrue(rule['reason'] and rule['consequence'])
+
+    def test_translation_keys_and_mission_invariants_match(self):
+        for group in sorted((ROOT / 'data/locales').iterdir()):
+            en = json.loads((group / 'strings.en.json').read_text())
+            fa = json.loads((group / 'strings.fa.json').read_text())
+            self.assertEqual(set(en), set(fa), group)
+            for key in en:
+                self.assertTrue(fa[key], key)
+                self.assertEqual(set(re.findall(r'\{\w+\}', en[key])), set(re.findall(r'\{\w+\}', fa[key])), key)
+        english = sorted((ROOT / 'content/missions').glob('[0-9]*/index.en.md'))
+        self.assertEqual(len(english), 14)
+        for source in english:
+            en, _ = json.JSONDecoder().raw_decode(source.read_text())
+            fa, _ = json.JSONDecoder().raw_decode(source.with_name(source.name.replace('.en.', '.fa.')).read_text())
+            for key in ['id', 'weight', 'source', 'challenge_type', 'answer', 'unlocks']:
+                self.assertEqual(en[key], fa[key], f'{source.name}: {key}')
+            self.assertEqual(len(en['options']), len(fa['options']))
+            for key in ['title', 'scene', 'task', 'success', 'lesson']:
+                self.assertRegex(fa[key], r'[\u0600-\u06ff]', key)
+                self.assertNotEqual(en[key], fa[key])
+            self.assertEqual([(r['before'], r['after']) for r in en.get('order_rules', [])], [(r['before'], r['after']) for r in fa.get('order_rules', [])])
+
+    def test_farsi_subpath_assets_and_linked_translations(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-fa-') as destination:
+            result = subprocess.run(['hugo', '--source', str(ROOT), '--destination', destination,
+                                     '--baseURL', 'https://example.org/learn/', '--panicOnWarning'],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            home = (Path(destination) / 'fa/index.html').read_text()
+            en = (Path(destination) / 'index.html').read_text()
+            self.assertIn('dir="rtl"', home)
+            self.assertIn('dir="ltr"', en)
+            self.assertIn('Vazirmatn-Variable.woff2', home)
+            self.assertNotIn('Vazirmatn', en)
+            self.assertIn('href="/learn/" lang="en"', home)
+            for url in re.findall(r'(?:src|href)="([^"]+)"', home):
+                if not url.startswith('/'):
+                    continue
+                self.assertTrue(url.startswith('/learn/'), url)
+                target = Path(destination) / url.removeprefix('/learn/')
+                if url.endswith('/'):
+                    target /= 'index.html'
+                self.assertTrue(target.exists(), url)
+            lesson = (Path(destination) / 'fa/missions/01-invitation/index.html').read_text()
+            self.assertIn('href="/learn/missions/01-invitation/"', lesson)
 
 
 if __name__ == '__main__':

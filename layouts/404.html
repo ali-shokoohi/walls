@@ -1,1 +1,1 @@
-{{ define "body" }}<main id="app" tabindex="-1"><section class="outro"><h1>This path is outside the walls.</h1><p>That page could not be found. <a href="{{ site.Home.RelPermalink }}">Return to the game</a>.</p></section></main>{{ end }}
+{{ define "body" }}{{ $u := partial "translations.html" . }}<main id="app" tabindex="-1"><section class="outro"><h1>{{ $u.notFound }}</h1><p>{{ $u.notFoundBody }} <a href="{{ site.Home.RelPermalink }}">{{ $u.returnGame }}</a>.</p></section></main>{{ end }}
