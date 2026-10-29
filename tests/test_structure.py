@@ -42,6 +42,18 @@ class ContributorStructureTests(unittest.TestCase):
                 self.assertTrue((Path(destination) / f'{lang}missions/01-invitation/index.html').exists())
                 self.assertTrue((Path(destination) / f'{lang}missions/14-final/index.html').exists())
 
+    def test_pull_requests_are_gated_and_only_main_deploys(self):
+        checks = (ROOT / '.github/workflows/check.yml').read_text()
+        deploy = (ROOT / '.github/workflows/deploy-pages.yml').read_text()
+
+        self.assertIn('pull_request:', checks)
+        self.assertIn('name: verify', checks)
+        self.assertIn('branches: [main]', checks)
+        self.assertIn('branches: [main]', deploy)
+        self.assertNotIn('workflow_dispatch', deploy)
+        self.assertIn('needs: test', deploy)
+        self.assertIn('needs: build', deploy)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

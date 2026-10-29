@@ -1,13 +1,16 @@
 name: Contributor checks
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
 
 permissions:
   contents: read
 
 jobs:
   verify:
+    name: verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

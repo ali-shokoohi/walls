@@ -6,6 +6,8 @@
 
 - [ ] `npm run check` (or list the focused checks below)
 - [ ] `hugo --minify --panicOnWarning`
+- [ ] Work started from a clean, up-to-date `main` topic branch
+- [ ] The branch was pushed only after the local gate passed
 - [ ] English/Spanish LTR and Persian RTL checked for UI/content changes
 - [ ] Phone layout and keyboard flow checked for interface changes
 - [ ] Translation keys/placeholders and stable mission IDs preserved
@@ -15,6 +17,11 @@
 ## Screenshots / testing notes
 
 <!-- Include both directions if changing shared layout. Explain any checks you could not run. For documentation-only changes, list formatting/link checks and mark application-only checks as not applicable. -->
+
+## Merge and deployment
+
+- [ ] I will wait for the required `verify` check to pass before merging.
+- [ ] This change will deploy only after it is merged into `main`.
 
 ## Translation review (if applicable)
 
