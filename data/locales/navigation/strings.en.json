@@ -27,5 +27,7 @@
   "needsJs": "The interactive game needs JavaScript. You can still",
   "readLessons": "read every lesson in the mission library",
   "mission": "Mission",
-  "language": "Language"
+  "language": "Language",
+  "lightTheme": "Light mode",
+  "darkTheme": "Dark mode"
 }

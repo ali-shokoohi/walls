@@ -138,6 +138,22 @@
   }
 }
 @media (max-width: 460px) {
+  .theme-toggle {
+    width: 44px;
+    padding: 8px;
+  }
+  .theme-label,
+  .language-picker > summary bdi,
+  .language-chevron {
+    display: none;
+  }
+  .language-picker > summary {
+    width: 44px;
+    justify-content: center;
+    padding: 8px;
+  }
+}
+@media (max-width: 460px) {
   header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;

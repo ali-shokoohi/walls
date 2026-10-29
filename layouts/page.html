@@ -1,6 +1,6 @@
 {{ define "body" }}
 {{ $u := partial "translations.html" . }}
-<header><a href="{{ site.Home.RelPermalink }}">{{ if eq site.Language.Direction "rtl" }}→{{ else }}←{{ end }} {{ $u.play }}</a><a href="{{ .Parent.RelPermalink }}">{{ $u.library }}</a>{{ partial "language-switch.html" . }}</header>
+<header><a href="{{ site.Home.RelPermalink }}">{{ if eq site.Language.Direction "rtl" }}→{{ else }}←{{ end }} {{ $u.play }}</a><a href="{{ .Parent.RelPermalink }}">{{ $u.library }}</a>{{ partial "theme-toggle.html" . }}{{ partial "language-switch.html" . }}</header>
 <main id="app" tabindex="-1"><article class="outro"><div class="label muted">{{ $u.mission }} {{ .Weight | lang.FormatNumber 0 }} · {{ .Params.chapter }}</div><h1>{{ .Title }}</h1><p class="muted">{{ .Params.goal }}</p>
 <section class="scene" style="border-radius:12px;margin:24px 0"><p>{{ partial "prose.html" .Params.scene }}</p><div class="speech"><small>{{ .Params.speaker }}</small><blockquote>{{ if eq site.Language.Lang "fa" }}«{{ else }}“{{ end }}{{ partial "prose.html" .Params.message }}{{ if eq site.Language.Lang "fa" }}»{{ else }}”{{ end }}</blockquote></div></section>
 <h2 class="lesson-decision">{{ $u.decision }}</h2><p style="margin:15px 0">{{ .Params.task }}</p><ol>{{ range .Params.options }}<li style="margin:12px 0"><strong>{{ partial "prose.html" .title }}</strong><br>{{ partial "prose.html" .detail }}</li>{{ end }}</ol>

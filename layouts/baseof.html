@@ -4,7 +4,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("hermes-theme");
+        const theme = saved === "light" || saved === "dark"
+          ? saved
+          : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch {}
+    })();
+  </script>
   <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
   <title>{{ if .IsHome }}{{ site.Title }} — {{ $u.adventure }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Description | default site.Params.description }}">
@@ -18,6 +29,8 @@
   {{ partial "styles.html" . }}
   {{ $languageJS := resources.Get "js/ui/language-picker.js" | js.Build (dict "targetPath" "js/language-picker.js" "format" "esm" "target" "es2020" "minify" hugo.IsProduction) | fingerprint "sha256" }}
   <script type="module" src="{{ $languageJS.RelPermalink }}" integrity="{{ $languageJS.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ $themeJS := resources.Get "js/ui/theme-toggle.js" | js.Build (dict "targetPath" "js/theme-toggle.js" "format" "esm" "target" "es2020" "minify" hugo.IsProduction) | fingerprint "sha256" }}
+  <script type="module" src="{{ $themeJS.RelPermalink }}" integrity="{{ $themeJS.Data.Integrity }}" crossorigin="anonymous"></script>
   {{ block "head" . }}{{ end }}
 </head>
 <body>

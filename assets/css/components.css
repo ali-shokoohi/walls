@@ -19,19 +19,19 @@
 .primary {
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   padding: 12px 22px;
   font-weight: bold;
 }
 .primary:hover {
-  background: #0f5439;
+  background: var(--accent-hover);
 }
 .primary:disabled,
 .primary:disabled:hover {
   opacity: 1;
-  background: #e6e9e1;
-  border-color: #c5cec0;
-  color: #667363;
+  background: var(--disabled-bg);
+  border-color: var(--disabled-border);
+  color: var(--disabled-ink);
   box-shadow: none;
 }
 .text-button:disabled {
@@ -312,7 +312,7 @@
 }
 .choice.selected .key {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 .actions {
@@ -327,8 +327,8 @@
   font-size: 13px;
 }
 .hint {
-  background: #fff2d2;
-  border: 1px solid #e1c98e;
+  background: var(--hint-bg);
+  border: 1px solid var(--hint-border);
   border-radius: 8px;
   padding: 13px 16px;
   font-size: 14px;
@@ -337,18 +337,18 @@
 .feedback {
   margin-top: 20px;
   padding: 20px;
-  border: 1px solid #a1c5a3;
-  background: #edf5e7;
+  border: 1px solid var(--success-border);
+  background: var(--success-bg);
   border-radius: 12px;
 }
 .feedback.bad {
-  border-color: #e0bb8f;
-  background: #fff3dc;
+  border-color: var(--danger-border);
+  background: var(--danger-bg);
 }
 .failure-detail {
   margin-top: 20px;
   padding-top: 18px;
-  border-top: 1px solid #ddc7a6;
+  border-top: 1px solid var(--feedback-divider);
 }
 .failure-detail h4 {
   margin: 0 0 14px;
@@ -360,7 +360,7 @@
   font-weight: bold;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #72502b;
+  color: var(--failure-label);
   margin: 14px 0 4px;
 }
 .failure-detail p {
@@ -392,10 +392,10 @@
   font-size: 15px;
   margin-top: 16px;
   padding-top: 14px;
-  border-top: 1px solid #c6d9bd;
+  border-top: 1px solid var(--term-border);
 }
 .feedback.bad .term {
-  border-color: #e0bb8f;
+  border-color: var(--danger-border);
 }
 .feedback .reward {
   font-size: 11px;
@@ -438,7 +438,7 @@ aside {
   border: 1px dashed var(--line);
   border-radius: 7px;
   padding: 9px 11px;
-  color: #6d7d76;
+  color: var(--layer-ink);
   font-size: 13px;
 }
 .layer i {
@@ -448,19 +448,19 @@ aside {
   place-items: center;
   width: 22px;
   height: 22px;
-  background: #eceee7;
+  background: var(--layer-dot-bg);
   border-radius: 50%;
   flex: none;
 }
 .layer.on {
   border-style: solid;
-  border-color: #a7c4a3;
+  border-color: var(--layer-on-border);
   background: var(--green);
   color: var(--accent);
 }
 .layer.on i {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 .journey {
   display: flex;
@@ -482,7 +482,7 @@ aside {
 .dot.done {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 .dot.current {
   outline: 2px solid var(--gold);
@@ -526,14 +526,14 @@ aside {
   margin: 10px 0;
 }
 .certificate p {
-  color: #b9d1c4;
+  color: var(--certificate-muted);
   font-size: 14px;
 }
 .certificate .facts {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
-  border-top: 1px solid #3b5655;
+  border-top: 1px solid var(--certificate-line);
   padding-top: 20px;
   margin-top: 20px;
 }
@@ -548,7 +548,7 @@ aside {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #b9d1c4;
+  color: var(--certificate-muted);
 }
 .takeaways {
   display: grid;

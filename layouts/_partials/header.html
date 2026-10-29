@@ -1,6 +1,6 @@
 {{- $u := partial "translations.html" . -}}
 <header>
   <div class="brand"><span class="brandmark" aria-hidden="true">b.</span><div><b>{{ site.Title }}</b><small>{{ $u.subtitle }}</small></div></div>
-  <nav class="tools" aria-label="{{ $u.help }}"><button class="quiet" id="glossaryBtn">{{ $u.wordbook }}</button><button class="quiet" id="aboutBtn">{{ $u.help }}<span class="abouttext">{{ $u.andSource }}</span></button></nav>
+  <nav class="tools" aria-label="{{ $u.help }}"><button class="quiet" id="glossaryBtn">{{ $u.wordbook }}</button><button class="quiet" id="aboutBtn">{{ $u.help }}<span class="abouttext">{{ $u.andSource }}</span></button>{{ partial "theme-toggle.html" . }}</nav>
   {{ partial "language-switch.html" . }}
 </header>

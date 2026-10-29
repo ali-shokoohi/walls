@@ -1,0 +1,8 @@
+{{- $u := partial "translations.html" . -}}
+<button class="quiet theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="{{ $u.darkTheme }}" data-light-label="{{ $u.lightTheme }}" data-dark-label="{{ $u.darkTheme }}">
+  <span class="theme-icon" aria-hidden="true">
+    <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+    <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20.5 14.8A8.5 8.5 0 0 1 9.2 3.5 8.5 8.5 0 1 0 20.5 14.8Z"/></svg>
+  </span>
+  <span class="theme-label">{{ $u.darkTheme }}</span>
+</button>

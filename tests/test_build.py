@@ -11,6 +11,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class HugoBuildTests(unittest.TestCase):
+    def test_dark_theme_follows_system_preference(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-theme-') as destination:
+            result = subprocess.run(
+                ['hugo', '--source', str(ROOT), '--destination', destination,
+                 '--baseURL', 'https://example.org/', '--panicOnWarning'],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            home = (Path(destination) / 'index.html').read_text()
+            self.assertIn('<meta name="color-scheme" content="light dark">', home)
+            css_url = re.search(r'href="([^"]+\.css)', home).group(1)
+            css = (Path(destination) / css_url.lstrip('/')).read_text()
+            self.assertIn(':root[data-theme=dark]', css)
+            self.assertIn('matchMedia("(prefers-color-scheme: dark)")', home)
+
     def test_homepage_publishes_playable_game(self):
         self.assertTrue((ROOT / 'hugo.toml').is_file(), 'Missing Hugo project configuration')
         with tempfile.TemporaryDirectory(prefix='hugo-test-') as destination:

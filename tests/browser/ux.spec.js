@@ -104,6 +104,19 @@ test("readable type, comfortable tablet width, and touch targets across breakpoi
   }
 });
 
+test("narrow headers use recognizable icons for theme and language controls", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator(".theme-toggle .theme-icon")).toBeVisible();
+  await expect(page.locator(".theme-toggle .theme-label")).toBeHidden();
+  await expect(page.locator(".language-picker .language-icon")).toBeVisible();
+  await expect(page.locator(".language-picker .language-label")).toBeHidden();
+  await expect(page.locator(".language-picker > summary bdi")).toBeHidden();
+  await expect(page.locator(".language-chevron")).toBeHidden();
+});
+
 test("hints and clearing choices do not recreate the question", async ({ page }) => {
   await begin(page);
   await page.locator('[data-choice="1"]').click();

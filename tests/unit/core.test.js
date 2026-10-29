@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { isCorrect, choiceKey, failureDetails } from "../../assets/js/core/rules.js";
 import { createI18n } from "../../assets/js/core/i18n.js";
 import { createStore } from "../../assets/js/core/state.js";
+import { nextTheme } from "../../assets/js/ui/theme-toggle.js";
 
 test("answer rules keep unordered multi-select separate from ordered steps", () => {
   assert.equal(isCorrect({ type: "multi", answer: [0, 2] }, [2, 0]), true);
@@ -66,4 +67,10 @@ test("store preserves legacy progress, deduplicates IDs, and validates drafts", 
   assert.deepEqual(store.validDraft(), [1]);
   store.save();
   assert.equal(JSON.parse(value).index, 1);
+});
+
+test("theme toggle alternates explicit light and dark modes", () => {
+  assert.equal(nextTheme("light"), "dark");
+  assert.equal(nextTheme("dark"), "light");
+  assert.equal(nextTheme("system"), "dark");
 });

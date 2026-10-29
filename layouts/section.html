@@ -1,6 +1,6 @@
 {{ define "body" }}
 {{ $u := partial "translations.html" . }}
-<header><a href="{{ site.Home.RelPermalink }}">{{ if eq site.Language.Direction "rtl" }}→{{ else }}←{{ end }} {{ $u.play }}</a>{{ partial "language-switch.html" . }}</header>
+<header><a href="{{ site.Home.RelPermalink }}">{{ if eq site.Language.Direction "rtl" }}→{{ else }}←{{ end }} {{ $u.play }}</a>{{ partial "theme-toggle.html" . }}{{ partial "language-switch.html" . }}</header>
 <main id="app" tabindex="-1"><article class="outro"><div class="label muted">{{ $u.learnPace }}</div><h1>{{ .Title }}</h1><div class="muted">{{ .Content }}</div><div class="reviewlist" style="margin-top:28px">
 {{ range .RegularPages.ByWeight }}<a class="reviewrow" href="{{ .RelPermalink }}"><b>{{ .Weight | lang.FormatNumber 0 }} · {{ .Title }}</b><span>{{ .Params.goal }}</span></a>{{ end }}
 </div><div class="footerline">{{ $u.resourceDisclaimer }}</div></article></main>
