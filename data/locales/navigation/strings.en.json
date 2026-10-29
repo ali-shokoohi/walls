@@ -29,5 +29,6 @@
   "mission": "Mission",
   "language": "Language",
   "lightTheme": "Light mode",
-  "darkTheme": "Dark mode"
+  "darkTheme": "Dark mode",
+  "githubRepository": "GitHub repository"
 }

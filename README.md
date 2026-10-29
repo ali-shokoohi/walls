@@ -27,6 +27,10 @@ Open **http://localhost:1313/** or **http://localhost:1313/fa/**.
 
 ## Contribute
 
+The game, library, and lesson headers link to the
+[GitHub repository](https://github.com/ali-shokoohi/walls). On narrow phones, the
+link shows only its icon while retaining a localized accessible name.
+
 Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**. Content, translation, and code
 changes each have a small, clearly owned place:
 

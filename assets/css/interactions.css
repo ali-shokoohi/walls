@@ -189,6 +189,20 @@
   justify-content: center;
   gap: 7px;
 }
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9px;
+  text-decoration: none;
+  flex: none;
+}
+.github-link svg {
+  flex: none;
+}
 .theme-icon {
   display: inline-grid;
   place-items: center;

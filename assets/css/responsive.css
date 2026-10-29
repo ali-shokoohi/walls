@@ -138,11 +138,13 @@
   }
 }
 @media (max-width: 460px) {
-  .theme-toggle {
+  .theme-toggle,
+  .github-link {
     width: 44px;
     padding: 8px;
   }
   .theme-label,
+  .github-label,
   .language-picker > summary bdi,
   .language-chevron {
     display: none;
