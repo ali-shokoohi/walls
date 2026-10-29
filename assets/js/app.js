@@ -44,6 +44,20 @@ export function startGame({ missions, i18n, storage }) {
     welcome();
     topFocus();
   }
+  function backToStart() {
+    store.reset();
+    selected = [];
+    result = null;
+    showHint = false;
+    welcome();
+    topFocus();
+  }
+  function previous() {
+    if (store.state.index <= 0) return;
+    store.rewind(store.state.index - 1);
+    mission();
+    topFocus();
+  }
   function mission() {
     selected = store.validDraft();
     const draft = store.state.draft;
@@ -129,7 +143,7 @@ export function startGame({ missions, i18n, storage }) {
       $("#hint").textContent = i18n.t(showHint ? "hideHint" : "hint");
     };
     $("#pause").onclick = pause;
-    $("#previous").onclick = () => navigate(store.state.index - 1);
+    $("#previous").onclick = previous;
     $("#progressBtn").onclick = openProgress;
     $("#clearSelection").onclick = () => {
       selected = [];
@@ -162,7 +176,7 @@ export function startGame({ missions, i18n, storage }) {
     );
     $("#export").onclick = () => downloadNotes(missions, store, i18n);
     $("#print").onclick = () => window.print();
-    $("#home").onclick = pause;
+    $("#home").onclick = backToStart;
   }
   function openProgress() {
     $("#journeyContent").innerHTML = renderTrail(context());
@@ -192,12 +206,10 @@ export function startGame({ missions, i18n, storage }) {
       }, 7000);
       return;
     }
-    store.reset();
     resetArmed = false;
     $("#resetNotice").hidden = true;
     $("#about").close();
-    welcome();
-    topFocus();
+    backToStart();
   };
   if (store.state.screen === "briefing" && store.completed() === missions.length)
     briefing();

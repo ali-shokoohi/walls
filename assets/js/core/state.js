@@ -43,6 +43,21 @@ export function createStore(missions, storage) {
       state = emptyState();
       this.save();
     },
+    rewind(index) {
+      if (!Number.isInteger(index) || index < 0 || index >= missions.length) return;
+      // Retain only lessons before the destination. Points and unlocks are
+      // derived from done, so they roll back together with the answer history.
+      const retained = new Set(missions.slice(0, index).map((m) => m.id));
+      state.done = state.done.filter((id) => retained.has(id));
+      state.retries = Object.fromEntries(
+        Object.entries(state.retries).filter(([id]) => retained.has(id)),
+      );
+      state.index = index;
+      state.screen = "mission";
+      delete state.draft;
+      delete state.resumeScreen;
+      this.save();
+    },
     completed() {
       return state.done.length;
     },

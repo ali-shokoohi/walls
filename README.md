@@ -60,6 +60,7 @@ scripts/validate.py             # Dependency-free content/translation preflight
  docs/                          # Focused contributor guides
 ```
 
+- [Agent guide](AGENT.md) — project instructions and documentation map for AI coding assistants
 - [Architecture and ownership](docs/architecture.md)
 - [Writing missions and wrong-answer feedback](docs/content-authoring.md)
 - [Translations, language files, and RTL](docs/translations.md)
@@ -132,8 +133,13 @@ progress because both translations use the same canonical IDs and answer indexes
 The game does not transmit progress. Your static host may still log normal page
 requests according to its own policy.
 
-Reset requires confirmation. Replaying cannot farm points. Only the current
-mission's draft is retained; moving to another lesson starts a fresh selection.
+**Previous** rewinds the run: the returned-to lesson and all later lessons lose
+completion, points, unlocks, retries and the saved answer. Earlier lessons stay
+completed. **Back to the start** on the final briefing clears the whole run;
+**Save & pause** preserves it. The separate reset action in Help still requires
+confirmation. Replaying from the trail/briefing is non-destructive and cannot
+farm points. Only the current mission's draft is retained; moving to another
+lesson starts a fresh selection.
 The notes export is a text summary, not an importable progress backup. Progress
 does not automatically move between browsers, origins, or devices.
 

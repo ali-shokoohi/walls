@@ -10,7 +10,7 @@
 
 - Contributor preflight passed: `Validated 14 missions, 2 locales, 8 translation sections.`
 - `npm run format:check` passed using the pinned Prettier version.
-- 6 Node unit tests passed for answer rules, wrong-answer diagnosis, escaping/RTL isolation, legacy state normalization, and browser-independent English/Persian view rendering.
+- 7 Node unit tests passed for answer rules, wrong-answer diagnosis, escaping/RTL isolation, legacy state normalization, and browser-independent English/Persian view rendering.
 - 19 Python validation/structure/Hugo tests passed (including 7 Hugo integration/content tests):
   - A real Hugo build publishes the game, 14 ordered missions, and local assets.
   - A minified subpath build keeps local asset/navigation URLs under `/learn/`.
@@ -19,9 +19,11 @@
   - English/Farsi translation keys and mission invariants match; stable IDs, option order and answer indexes are preserved.
   - Farsi subpath assets and translated lesson links resolve to generated files.
   - A temporary third-language fixture appears automatically in the dropdown and retains corresponding lesson URLs under `/learn/`.
-- 24 Playwright browser tests passed:
+- 28 Playwright browser tests passed:
   - All 14 missions, final screen, wrong-answer retry, scoring, notes download, and no duplicate replay points.
   - Progress recovery after a real page reload.
+  - In English and Persian, Previous clears the returned-to and later completion/answers, rolls back points/progress, and persists the rewind through reload.
+  - Back to the start clears all saved run state in both languages; Save & pause still preserves it.
   - Unsafe extra multi-select answers and incorrect ordering rejected.
   - Hints, wordbook/help dialogs, and two-step reset.
   - Every mission fits a 320px viewport; mission buttons are at least 44px high.
