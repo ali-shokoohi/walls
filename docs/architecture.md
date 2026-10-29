@@ -77,6 +77,16 @@ keys, language files and mismatched placeholders before deployment.
 publishes one minified fingerprinted stylesheet, without runtime `@import`
 requests. Persian-only typography remains in `farsi.css`; English never loads it.
 
+Motion lives in `interactions.css` behind `prefers-reduced-motion: no-preference`.
+`app.js` marks scene entrances versus feedback updates with `#app[data-motion]`,
+so checking an answer does not reanimate the question. It captures the previous
+progress width before rendering and supplies `--progress-from` only when the
+value changes. CSS handles the fill animation without changing score or storage.
+Decorative animations are finite, controls never await animation completion, and
+`accessibility.css` disables motion (including pseudo-elements) for reduced-motion
+preferences and print. Use backwards-only entrance fills so finished transforms
+do not retain stacking contexts or override later hover/press feedback.
+
 The existing cascade was preserved during this organization-only change. Put a
 new component next to its ownership group and avoid a growing pile of unrelated
 overrides. Use logical inline spacing, not separate copied LTR/RTL stylesheets.

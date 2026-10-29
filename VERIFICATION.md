@@ -19,7 +19,7 @@
   - English/Farsi translation keys and mission invariants match; stable IDs, option order and answer indexes are preserved.
   - Farsi subpath assets and translated lesson links resolve to generated files.
   - A temporary third-language fixture appears automatically in the dropdown and retains corresponding lesson URLs under `/learn/`.
-- 28 Playwright browser tests passed:
+- 37 Playwright browser tests passed:
   - All 14 missions, final screen, wrong-answer retry, scoring, notes download, and no duplicate replay points.
   - Progress recovery after a real page reload.
   - In English and Persian, Previous clears the returned-to and later completion/answers, rolls back points/progress, and persists the rewind through reload.
@@ -41,6 +41,9 @@
   - Wrong-answer reasoning, bilingual content, and correct language selection on English/Farsi pages.
   - Farsi RTL layout, self-hosted Vazirmatn loading, LTR isolation for technical tokens, and 320px Farsi mission flow.
   - Language dropdown current selection, keyboard opening, Escape/focus return, outside-click dismissal, and 320px LTR/RTL sizing.
+  - Animated scene entrances in English/Persian at desktop and phone widths, with immediate heading focus and no horizontal overflow.
+  - A finite bot greeting; in-place selection animation; feedback/reward and previous-to-current progress animation without replaying the question entrance.
+  - Reduced-motion mode suppresses scene, selection, feedback and dialog/backdrop motion in both languages; changing the preference stops an active greeting immediately.
 - Production smoke test passed using Hugo's imported, bundled ES module output served at `/learn/`:
   - A fingerprinted `type="module"` game bundle initializes without global compatibility shims; a small shared module enhances language navigation on all pages.
   - First mission completed; language switching preserved checked feedback.
@@ -51,6 +54,22 @@
 - Contributor workflow, PR checklist, formatting configuration and focused architecture/content/translation guides are included. GitHub Actions configuration was added but no remote workflow run or deployment was performed.
 - Visual inspection passed for desktop, tablet, and 390px mobile Persian screenshots, including RTL layout and readable lesson pages.
 - Production Hugo build completed without warnings; JavaScript syntax check passed.
+
+## Motion update inspection
+
+- Re-ran validation, formatting, all 7 unit tests, all 19 Python/Hugo tests,
+  all 37 Playwright tests, the warning-strict minified build and `git diff --check`.
+- All 37 browser tests also passed with the default reduced-motion setting
+  overridden to `no-preference`, exercising the ordinary game flow with motion.
+- Inspected production-build screenshots for English/Persian at 1440px and
+  390px across welcome, mission, success feedback and mission-trail dialog states.
+  No new clipping or overlap was identified. Browser measurements confirmed no
+  horizontal overflow, heading focus after navigation, Escape focus return, and
+  scrolling to the last trail mission with the close control still reachable.
+- No JavaScript page errors were observed. The static preview requested an absent
+  `/favicon.ico` (404); this unrelated missing asset was left unchanged.
+- Kept `AGENTS.md` as the single agent guide, removed the identical `AGENT.md`,
+  and updated the README link. No game content, scoring or storage format changed.
 
 ## Scope and limits
 

@@ -60,7 +60,7 @@ scripts/validate.py             # Dependency-free content/translation preflight
  docs/                          # Focused contributor guides
 ```
 
-- [Agent guide](AGENT.md) — project instructions and documentation map for AI coding assistants
+- [Agent guide](AGENTS.md) — project instructions and documentation map for AI coding assistants
 - [Architecture and ownership](docs/architecture.md)
 - [Writing missions and wrong-answer feedback](docs/content-authoring.md)
 - [Translations, language files, and RTL](docs/translations.md)
@@ -124,6 +124,19 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory public
 Use HTTP, not double-clicking `public/index.html`: generated assets and directory
 URLs assume a web server. Generated files are ignored by Git; edit source instead.
 No remote deployment is performed by local build commands.
+
+## Motion and interaction
+
+Scenes and answer cards arrive with short, staggered transitions. The welcome bot
+bobs and blinks, choices respond to hover/press/selection, and progress fills from
+its previous value when completion changes. Feedback, hints, dialogs and the
+language dropdown ease into view without delaying controls or keyboard focus.
+Checking an answer does not replay the whole scene entrance.
+
+Decorative greetings settle within four seconds rather than looping while you
+read. System **Reduce motion** preferences disable animations and transitions,
+including dialog backdrops, and use instant scrolling. No animation library or
+new runtime dependency is required.
 
 ## Progress and privacy
 

@@ -22,6 +22,7 @@ export function startGame({ missions, i18n, storage }) {
   const openAbout = () => $("#about").showModal();
 
   function welcome() {
+    $("#app").dataset.motion = "scene";
     $("#app").innerHTML = renderWelcome(context());
     $("#start").onclick = resume;
   }
@@ -112,15 +113,22 @@ export function startGame({ missions, i18n, storage }) {
     if (good && !store.isDone(m)) store.state.done.push(m.id);
     if (!good) store.state.retries[m.id] = (store.state.retries[m.id] || 0) + 1;
     saveDraft();
-    paint();
+    paint(false);
     $("#resultBox")?.focus({ preventScroll: true });
     $("#resultBox")?.scrollIntoView({
       block: "nearest",
       behavior: scrollBehavior(),
     });
   }
-  function paint() {
+  function paint(enterScene = true) {
+    const previousProgress = $(".meter i")?.style.width;
+    $("#app").dataset.motion = enterScene ? "scene" : "feedback";
     $("#app").innerHTML = renderMission(context());
+    const meter = $(".meter i");
+    if (previousProgress && previousProgress !== meter.style.width) {
+      meter.style.setProperty("--progress-from", previousProgress);
+      meter.classList.add("progress-changed");
+    }
     $$("[data-choice]").forEach(
       (button) =>
         (button.onclick = () => {
@@ -170,6 +178,7 @@ export function startGame({ missions, i18n, storage }) {
   function briefing() {
     store.state.screen = "briefing";
     store.save();
+    $("#app").dataset.motion = "scene";
     $("#app").innerHTML = renderBriefing(context());
     $$("[data-review]").forEach(
       (button) => (button.onclick = () => navigate(Number(button.dataset.review))),

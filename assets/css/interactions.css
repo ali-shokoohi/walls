@@ -1,4 +1,165 @@
 /* Shared interaction and reading ergonomics. */
+@media (prefers-reduced-motion: no-preference) {
+  #app[data-motion="scene"] .intro > div,
+  #app[data-motion="scene"] .mission,
+  #app[data-motion="scene"] .outro > :not(.reviewlist) {
+    animation: scene-arrive 380ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  }
+  #app[data-motion="scene"] .starter,
+  #app[data-motion="scene"] .layout > aside {
+    animation: scene-arrive 420ms 60ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  }
+  #app[data-motion="scene"] .speech {
+    animation: scene-arrive 320ms 100ms ease-out backwards;
+  }
+  #app[data-motion="scene"] .choice {
+    animation: scene-arrive 300ms 140ms ease-out backwards;
+  }
+  #app[data-motion="scene"] .choice:nth-child(2) {
+    animation-delay: 180ms;
+  }
+  #app[data-motion="scene"] .choice:nth-child(3) {
+    animation-delay: 220ms;
+  }
+  #app[data-motion="scene"] .choice:nth-child(n + 4) {
+    animation-delay: 260ms;
+  }
+  .bot {
+    animation: bot-bob 1600ms ease-in-out 2;
+  }
+  .eye {
+    animation: bot-blink 2800ms ease-in-out;
+  }
+  .orb {
+    animation: bot-bob 1800ms ease-in-out 2;
+  }
+  .orb.b {
+    animation-delay: 200ms;
+    animation-direction: reverse;
+  }
+  .orb.c {
+    animation-delay: 400ms;
+  }
+  #app[data-motion="scene"] .pulse {
+    animation: signal-pulse 1200ms ease-out 3;
+  }
+  button,
+  .language-picker > summary,
+  .language-options a {
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+  button:not(:disabled):active {
+    transform: scale(0.98);
+  }
+  .choice .key,
+  .language-chevron {
+    transition:
+      border-radius 200ms ease,
+      transform 200ms ease;
+  }
+  .choice.selected:not(:disabled) .key {
+    animation: reward-pop 260ms ease-out;
+  }
+  .feedback,
+  .hint:not([hidden]),
+  dialog[open],
+  .language-picker[open] .language-options {
+    animation: enter 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  dialog[open]::backdrop {
+    animation: backdrop-arrive 200ms ease-out;
+  }
+  #app[data-motion="feedback"] .feedback:not(.bad) .reward {
+    animation: reward-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .meter i.progress-changed {
+    animation: progress-grow 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @media (hover: hover) {
+    .primary:not(:disabled):hover,
+    .choice:not(:disabled):hover,
+    .dot:not(:disabled):hover,
+    .reviewrow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px #173f2c14;
+    }
+    .primary:not(:disabled):active,
+    .choice:not(:disabled):active,
+    .dot:not(:disabled):active,
+    .reviewrow:active {
+      transform: scale(0.98);
+    }
+  }
+}
+@keyframes bot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+}
+@keyframes bot-blink {
+  0%,
+  42%,
+  48%,
+  76%,
+  82%,
+  100% {
+    transform: scaleY(1);
+  }
+  45%,
+  79% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes signal-pulse {
+  from {
+    box-shadow: 0 0 0 0 #e8c66a66;
+  }
+  to {
+    box-shadow: 0 0 0 7px #e8c66a00;
+  }
+}
+@keyframes reward-pop {
+  0% {
+    transform: scale(0.94);
+  }
+  55% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes progress-grow {
+  from {
+    width: var(--progress-from);
+  }
+}
+@keyframes backdrop-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scene-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .language-nav {
   flex: 0 0 auto;
   margin-inline-start: auto;
