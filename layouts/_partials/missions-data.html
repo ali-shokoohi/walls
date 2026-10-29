@@ -1,0 +1,9 @@
+{{- $missions := slice -}}
+{{- with site.GetPage "missions" -}}
+{{- range .RegularPages.ByWeight -}}
+{{- $p := .Params -}}
+{{- $m := dict "id" $p.id "chapter" $p.chapter "title" .Title "goal" $p.goal "scene" $p.scene "speaker" $p.speaker "message" $p.message "task" $p.task "options" $p.options "answer" $p.answer "success" $p.success "lesson" $p.lesson "why" $p.why "term" $p.term "source" $p.source "reward" $p.reward "unlocks" $p.unlocks "type" $p.challenge_type -}}
+{{- $missions = $missions | append $m -}}
+{{- end -}}
+{{- end -}}
+{{- return $missions -}}

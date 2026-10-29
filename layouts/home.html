@@ -1,0 +1,10 @@
+{{ define "head" }}
+  {{ $js := resources.Get "js/game.js" | minify | fingerprint "sha256" }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{ end }}
+{{ define "body" }}
+  {{ partial "header.html" . }}
+  <main id="app"><noscript><section class="outro"><h1>Small Bot, Strong Walls</h1><p>The interactive game needs JavaScript. You can still <a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">read every lesson in the mission library</a>.</p></section></noscript></main>
+  {{ partial "dialogs.html" . }}
+  <script id="mission-data" type="application/json">{{ partial "missions-data.html" . | jsonify | safeJS }}</script>
+{{ end }}

@@ -1,0 +1,11 @@
+baseURL = 'https://example.org/'
+locale = 'en-US'
+title = 'Small Bot, Strong Walls'
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term', 'RSS']
+
+[params]
+  description = 'Learn AI bot security through 14 forgiving story missions. No coding, timers, or server experience required.'
+
+[module.hugoVersion]
+  min = '0.158.0'

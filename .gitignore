@@ -1,0 +1,8 @@
+/public/
+/resources/
+/node_modules/
+/test-results/
+/playwright-report/
+.hugo_build.lock
+__pycache__/
+*.pyc
