@@ -73,6 +73,6 @@
 
 ## Scope and limits
 
-The configured GitHub Pages deployment uses `https://ali-shokoohi.github.io/hermes-security-workstation-guide/`.
+The configured GitHub Pages deployment uses `https://walls.shokoohi.dev/`.
 Tests validate the
 learning website, not any of the real security controls described by the game.

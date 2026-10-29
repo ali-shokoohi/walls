@@ -102,7 +102,7 @@ The repository publishes automatically to GitHub Pages from `main` using
 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). The
 published site is:
 
-https://ali-shokoohi.github.io/hermes-security-workstation-guide/
+https://walls.shokoohi.dev/
 
 The workflow builds Hugo's `public/` output, uploads it as a Pages artifact, and
 deploys it with the official GitHub Pages actions. After enabling Pages once in
