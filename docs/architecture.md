@@ -107,6 +107,13 @@ specific reviewed escaping boundary.
 - `tests/test_*.py`: schema/validator and actual Hugo builds/URL checks.
 - `scripts/validate.py`: contributor content and translation preflight.
 
+Changes enter through a topic branch based on a clean, current `main`.
+`.github/workflows/check.yml` runs the `verify` job for pull requests targeting
+`main`; repository settings must require that check and pull requests before
+allowing a merge. `.github/workflows/deploy-pages.yml` listens only for pushes
+to `main`, runs its own test job, and deploys only after that test and build
+chain succeeds. It has no manual trigger, so a topic-branch push cannot deploy.
+
 Output remains static and deployable under a root or subpath. The original PDF
 and locally licensed Vazirmatn font are static assets. The refactor does not add
 a backend, analytics, remote font calls, or public deployment.

@@ -71,6 +71,13 @@ scripts/validate.py             # Dependency-free content/translation preflight
  docs/                          # Focused contributor guides
 ```
 
+Changes follow a protected-main workflow: start from a clean, up-to-date `main`,
+create a topic branch, run the full checks, then commit, push, and open a pull
+request. The required `verify` check must pass before merge. GitHub Pages deploys
+only from the merged `main` branch; a local build or topic-branch push never
+deploys the site. See [the delivery rules](CONTRIBUTING.md#delivery-rules) for
+the complete sequence.
+
 - [Agent guide](AGENTS.md) — project instructions and documentation map for AI coding assistants
 - [Architecture and ownership](docs/architecture.md)
 - [Writing missions and wrong-answer feedback](docs/content-authoring.md)
@@ -109,7 +116,7 @@ contributors/tests only. No npm packages are loaded by the deployed game.
 
 ## Build and deploy
 
-The repository publishes automatically to GitHub Pages from `main` using
+The repository publishes automatically to GitHub Pages from merged `main` using
 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). The
 published site is:
 
@@ -117,8 +124,9 @@ https://walls.shokoohi.dev/
 
 The workflow builds Hugo's `public/` output, uploads it as a Pages artifact, and
 deploys it with the official GitHub Pages actions. After enabling Pages once in
-the repository settings, pushes to `main` and manual workflow runs publish the
-site. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+the repository settings, a push to `main` after a pull request merge publishes
+the site. The workflow has no manual deployment trigger. In **Settings → Pages**,
+set **Source** to **GitHub Actions**.
 
 For a local production build:
 

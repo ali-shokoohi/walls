@@ -19,9 +19,19 @@ are welcome. You can contribute content without writing JavaScript.
 5. Find the smallest matching file using [the architecture map](docs/architecture.md).
 6. Make one focused change, run the checks below, and open a pull request.
 
-Work on a topic branch in your fork, not directly on `main`. Describe what changed
-and which checks you actually ran in the pull request. You do not need to deploy
-the website or configure GitHub Pages to contribute.
+Work on a topic branch created from an up-to-date `main`, not directly on `main`.
+Before switching branches, confirm the current worktree is clean. If it contains
+uncommitted changes, stop and commit or otherwise preserve that work before
+updating `main`; never discard it. Pull the latest `origin/main`, create a
+related topic branch, and keep the branch focused.
+
+Run the complete local gate before committing. Push the branch only after the
+gate passes, then open a pull request targeting `main`. The `verify` check must
+pass before the pull request can merge; do not merge while checks are pending or
+failed. After merge, update local `main` and let the Pages workflow deploy the
+merged commit. Do not deploy from a topic branch or treat a local build as a
+deployment. Describe what changed and which checks actually ran in the pull
+request.
 
 ### A small translation fix
 
@@ -88,10 +98,32 @@ CHROMIUM_PATH=/usr/bin/chromium npm run check
 Use the actual executable path on your system. Build/validation scripts only
 need Hugo and Python; npm is for development tooling, not a runtime dependency.
 [Contributor checks](.github/workflows/check.yml) runs the combined checks and a
-warning-strict production build on pushes and pull requests. The separate
-[Pages workflow](.github/workflows/deploy-pages.yml) also runs tests before
-building and deploying on pushes to `main` or a manual run. A local build does
-not deploy anything.
+warning-strict production build on pushes to `main` and pull requests targeting
+`main`. The `verify` job is the required pre-merge gate. The separate [Pages
+workflow](.github/workflows/deploy-pages.yml) runs its test job before building
+and deploying only after a push to `main`, which represents a merged change. A
+local build does not deploy anything.
+
+## Delivery rules
+
+The repository follows this sequence for every change:
+
+1. Confirm the current worktree is clean. If it is not, stop rather than
+   switching branches; commit or preserve the uncommitted work first.
+2. Check out `main` and fast-forward it from `origin/main`.
+3. Create a related topic branch from that updated `main`.
+4. Make the change and run the complete local gate.
+5. Commit and push the tested branch, then open a pull request into `main`.
+6. Wait for the required `verify` check to pass. Failed checks must be fixed and
+   re-run; pending checks are not approval to merge.
+7. Merge the pull request into `main` only after the gate is green.
+8. Pull the merged `main` locally and verify the Pages workflow completed before
+   calling the site deployed.
+
+Repository administrators should protect `main` with the `verify` status check,
+require pull requests, require the branch to be up to date before merging, and
+disable direct pushes. The deployment workflow intentionally has no manual
+trigger: deployment follows the merged `main` path only.
 
 ### Match verification to the change
 

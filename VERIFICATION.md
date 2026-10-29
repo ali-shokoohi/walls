@@ -1,5 +1,21 @@
 # Verification report
 
+## Delivery workflow update
+
+- Added a regression test for the pull-request and deployment workflow contracts.
+- Contributor checks now run on pull requests targeting `main` and expose the
+  required `verify` job; pushes are limited to `main`.
+- Pages deployment no longer has a manual trigger and runs only from `main`,
+  after its test and build jobs succeed.
+- Updated the contributor guide, agent guide, README, architecture guide, and PR
+  template with the clean-main, topic-branch, green-check, merge, and deploy
+  sequence.
+- Current local verification passed with `CHROMIUM_PATH=/usr/bin/chromium npm run
+check`, `hugo --minify --panicOnWarning`, and `git diff --check`: 9 Node unit
+  tests, 22 Python/Hugo tests, and 45 Playwright tests passed.
+- Repository branch-protection settings and the remote pull request/deployment
+  state were not changed locally; those require GitHub repository access.
+
 ## Environment
 
 - Hugo 0.167.0 (Linux/amd64; installed build is Extended, but this project uses no Extended-only feature).

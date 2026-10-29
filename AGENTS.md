@@ -78,11 +78,17 @@ small change to the owning module over a second implementation or a broad rewrit
 ## Work and verification
 
 1. Inspect `git status` and the relevant source/docs. Preserve existing user edits;
-   do not reset, overwrite or include unrelated work in a commit.
-2. For behavior changes, write a focused regression test and observe its expected
+   do not reset, overwrite or include unrelated work in a commit. If the worktree
+   is dirty, stop before switching to `main` and require the user to commit or
+   preserve those changes first.
+2. Start delivery from an up-to-date `main`: fast-forward from `origin/main`, then
+   create a related topic branch. Commit and push only after the complete local
+   gate passes; open a PR into `main` and wait for the required `verify` check
+   before merging.
+3. For behavior changes, write a focused regression test and observe its expected
    failure before implementing. Use Node tests for pure logic, Playwright for
    interaction and persistence, and Python/Hugo tests for generated pages/content.
-3. Implement the smallest complete change, then run the focused tests and the
+4. Implement the smallest complete change, then run the focused tests and the
    applicable project checks from the repository root:
 
    ```sh
@@ -101,13 +107,14 @@ small change to the owning module over a second implementation or a broad rewrit
    formatting to avoid unrelated churn. Go templates and mission Markdown are
    intentionally excluded from general Prettier formatting.
 
-4. For shared UI changes, inspect English/Persian/Spanish desktop and narrow-phone layouts,
+5. For shared UI changes, inspect English/Persian/Spanish desktop and narrow-phone layouts,
    keyboard flow and console errors. For documentation-only changes, check links,
    commands against `package.json`, formatting and the diff; do not claim a full
    application test run if you did not perform one.
-5. Update affected documentation and report what changed, what actually passed,
-   and any limitations. Never invent test output or imply a local build deployed
-   the website remotely.
+6. After merge, update local `main` and verify the main-only Pages workflow before
+   reporting deployment. Update affected documentation and report what changed,
+   what actually passed, and any limitations. Never invent test output or imply a
+   local build deployed the website remotely.
 
 Do not edit or commit generated `public/`, `resources/`, `node_modules/`, browser
 reports or caches. Do not change the deployment URL, install new dependencies,
