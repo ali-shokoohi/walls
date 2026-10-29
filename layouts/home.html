@@ -4,7 +4,7 @@
 {{ end }}
 {{ define "body" }}
   {{ partial "header.html" . }}
-  <main id="app"><noscript><section class="outro"><h1>Small Bot, Strong Walls</h1><p>The interactive game needs JavaScript. You can still <a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">read every lesson in the mission library</a>.</p></section></noscript></main>
+  <main id="app" tabindex="-1"><noscript><section class="outro"><h1>Small Bot, Strong Walls</h1><p>The interactive game needs JavaScript. You can still <a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">read every lesson in the mission library</a>.</p></section></noscript></main>
   {{ partial "dialogs.html" . }}
   <script id="mission-data" type="application/json">{{ partial "missions-data.html" . | jsonify | safeJS }}</script>
 {{ end }}

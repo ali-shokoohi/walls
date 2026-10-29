@@ -137,8 +137,10 @@ test("all missions fit a 320px phone and navigation is touch-sized", async ({
       ),
     ).toBe(true);
   }
+  await page.locator("#progressBtn").click();
   expect(
-    (await page.locator(".dot").first().boundingBox()).height,
+    (await page.locator("#journeyDialog [data-go]").first().boundingBox())
+      .height,
   ).toBeGreaterThanOrEqual(44);
 });
 

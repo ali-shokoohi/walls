@@ -12,13 +12,20 @@
   - A real Hugo build publishes the game, 14 ordered missions, and local assets.
   - A minified subpath build keeps local asset/navigation URLs under `/learn/`.
   - Editing a Markdown mission changes both game data and the readable lesson page.
-- 6 Playwright browser tests passed:
+- 14 Playwright browser tests passed:
   - All 14 missions, final screen, wrong-answer retry, scoring, notes download, and no duplicate replay points.
   - Progress recovery after a real page reload.
   - Unsafe extra multi-select answers and incorrect ordering rejected.
   - Hints, wordbook/help dialogs, and two-step reset.
   - Every mission fits a 320px viewport; mission buttons are at least 44px high.
   - No-JavaScript mission library, readable explanation, and original PDF download.
+  - Stable answer DOM and keyboard focus, with no selection-induced scroll jump.
+  - Draft answers, checked feedback, pause state, and the final briefing survive reloads.
+  - Mission-trail dialog navigation, Escape handling, and focus restoration.
+  - Layout, minimum text sizes, and touch targets at 320, 390, 600, 820, 1024, and 1440px widths.
+  - Hints expand without replacing the question; Clear selection resets submission state.
+  - Dialogs scroll on a 568×320 landscape viewport while keeping the close button reachable.
+  - Enlarged text reflows and the keyboard skip link focuses the content.
 - Production smoke test passed using Hugo's minified output served at `/learn/`:
   - First mission completed, 100 points awarded.
   - 14-entry mission library available.

@@ -1,6 +1,6 @@
 {{ define "body" }}
 <header><a href="{{ site.Home.RelPermalink }}">← Play the game</a><a href="{{ .Parent.RelPermalink }}">Mission library</a></header>
-<main><article class="outro"><div class="label muted">Mission {{ .Weight }} · {{ .Params.chapter }}</div><h1>{{ .Title }}</h1><p class="muted">{{ .Params.goal }}</p>
+<main id="app" tabindex="-1"><article class="outro"><div class="label muted">Mission {{ .Weight }} · {{ .Params.chapter }}</div><h1>{{ .Title }}</h1><p class="muted">{{ .Params.goal }}</p>
 <section class="scene" style="border-radius:12px;margin:24px 0"><p>{{ .Params.scene }}</p><div class="speech"><small>{{ .Params.speaker }}</small><blockquote>“{{ .Params.message }}”</blockquote></div></section>
 <h2 style="font-size:28px">The decision</h2><p style="margin:15px 0">{{ .Params.task }}</p><ol>{{ range .Params.options }}<li style="margin:12px 0"><strong>{{ .title }}</strong><br>{{ .detail }}</li>{{ end }}</ol>
 <details class="starter" style="padding:22px;margin:22px 0"><summary>Reveal the explanation</summary><p style="margin:16px 0">{{ .Params.success }}</p><strong>{{ .Params.lesson }}</strong><ul>{{ range .Params.why }}<li>{{ . }}</li>{{ end }}</ul></details>

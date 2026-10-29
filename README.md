@@ -141,6 +141,24 @@ expectation deliberately if the curriculum changes. Static introductory copy
 Hugo's pretty URLs use the filename, such as
 `/missions/01-invitation/`. Renaming a file changes its readable-page URL.
 
+## Responsive layout and learning controls
+
+- Phones and tablets up to 1000px use a full-width mission; desktop keeps a
+  secondary progress sidebar. Mission trail opens the complete, named lesson list
+  on every screen size, with completed, current, and locked states.
+- Select answers without recreating the question, losing keyboard focus, or
+  jumping the page. A live selection count and Clear selection make multi-choice
+  and ordering tasks easier to follow.
+- Save & pause preserves your current mission. Answers and feedback survive a
+  reload, and finishing the game restores the final briefing instead of asking
+  you to solve the last mission again. Only the current mission's draft is kept;
+  moving to a different mission starts that mission with a fresh selection.
+- Hints expand in place. Reduced-motion preferences also apply to retry scrolling.
+- Wordbook, Help, and Mission trail use named dialogs, keyboard Escape, focus
+  restoration, and reachable sticky close controls on short screens.
+- Keyboard users can skip directly to the content. Navigation targets are at least
+  44px high, and answer explanations use a minimum 14px text size.
+
 ## Learner data and privacy
 
 Progress is saved only in this browser's `localStorage`, under

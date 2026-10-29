@@ -1,6 +1,6 @@
 {{ define "body" }}
 <header><a href="{{ site.Home.RelPermalink }}">← Play Small Bot, Strong Walls</a></header>
-<main><article class="outro"><div class="label muted">Learn at your own pace</div><h1>{{ .Title }}</h1><div class="muted">{{ .Content }}</div><div class="reviewlist" style="margin-top:28px">
+<main id="app" tabindex="-1"><article class="outro"><div class="label muted">Learn at your own pace</div><h1>{{ .Title }}</h1><div class="muted">{{ .Content }}</div><div class="reviewlist" style="margin-top:28px">
 {{ range .RegularPages.ByWeight }}<a class="reviewrow" href="{{ .RelPermalink }}"><b>{{ printf "%02d" .Weight }} · {{ .Title }}</b><span>{{ .Params.goal }}</span></a>{{ end }}
 </div><div class="footerline">A learning resource, not a live audit or a security certification.</div></article></main>
 {{ end }}

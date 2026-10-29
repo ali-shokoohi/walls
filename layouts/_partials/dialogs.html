@@ -1,2 +1,22 @@
-<dialog id="glossary"><button class="quiet close" data-close>Close</button><h2>Your wordbook</h2><p>No memorizing required. These are the ideas you meet in the missions.</p><dl class="glossary" id="wordlist"></dl></dialog>
-<dialog id="about"><button class="quiet close" data-close>Close</button><h2>Learn by trying.</h2><p><strong>You play the owner of a shared AI bot.</strong> You do not need to know Linux, write code, or set up a server. Choose an answer, check it, and see why it works—or what you missed.</p><p>There are no lives, timers, or penalties for a wrong answer. Use hints freely. Multi-select missions require exactly the safe choices. In the ordering mission, tap steps in order; tap again to remove one.</p><p>Each completed mission awards 100 learning points once. You can replay any unlocked mission. Progress stays in this browser when local storage is available. It is not sent anywhere. Use ‘Reset progress’ to remove it.</p><p><strong>Teaching model, not a security audit:</strong> this game simplifies the supplied <em>Hardening a Shared Hermes Agent on Telegram</em> PDF, final edition 28 October 2026. Completing it does not configure, verify, or secure any real system.</p><p><a id="pdfLink" href="{{ "downloads/hermes-security-guide-original.pdf" | relURL }}" download="hermes-security-guide-original.pdf">Download the original PDF</a></p><p>Real deployments must be version-checked and tested. The game emphasizes containment, least privilege, and remaining risks rather than treating any design as unbreakable. Never enter real API keys or bot tokens here.</p><p><a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">Browse the mission library</a> — text versions of every lesson, readable without JavaScript.</p><button class="quiet" id="resetBtn">Reset progress</button><p id="resetNotice" hidden>Press again to confirm. This only clears your game progress.</p></dialog>
+<dialog id="glossary" aria-labelledby="wordbookTitle">
+  <div class="dialog-head"><h2 id="wordbookTitle">Your wordbook</h2><button class="quiet close" data-close aria-label="Close wordbook">Close</button></div>
+  <p>No memorizing required. These are the ideas you meet in the missions.</p>
+  <dl class="glossary" id="wordlist"></dl>
+</dialog>
+<dialog id="journeyDialog" aria-labelledby="journeyTitle">
+  <div class="dialog-head"><h2 id="journeyTitle">Your mission trail</h2><button class="quiet close" data-close aria-label="Close mission trail">Close</button></div>
+  <div id="journeyContent"></div>
+</dialog>
+<dialog id="about" aria-labelledby="aboutTitle">
+  <div class="dialog-head"><h2 id="aboutTitle">Learn by trying.</h2><button class="quiet close" data-close aria-label="Close help">Close</button></div>
+  <p><strong>You play the owner of a shared AI bot.</strong> You do not need to know Linux, write code, or set up a server. Choose an answer, check it, and see why it works—or what you missed.</p>
+  <p>There are no lives, timers, or penalties for a wrong answer. Use hints freely. Multi-select missions require exactly the safe choices. In the ordering mission, tap steps in order; tap again to remove one, or use <strong>Clear selection</strong> to start over.</p>
+  <p><strong>Take a break anytime.</strong> Your answers, feedback, and completed missions are saved in this browser when storage is available. Choose <strong>Save &amp; pause</strong> to return to the welcome screen. <strong>Mission trail</strong> lets you revisit unlocked lessons.</p>
+  <p>Each completed mission awards 100 learning points once. Progress is not sent anywhere. Use ‘Reset progress’ to remove it.</p>
+  <p><strong>Teaching model, not a security audit:</strong> this game simplifies the supplied <em>Hardening a Shared Hermes Agent on Telegram</em> PDF, final edition 28 October 2026. Completing it does not configure, verify, or secure any real system.</p>
+  <p><a id="pdfLink" href="{{ "downloads/hermes-security-guide-original.pdf" | relURL }}" download="hermes-security-guide-original.pdf">Download the original PDF</a></p>
+  <p>Real deployments must be version-checked and tested. The game emphasizes containment, least privilege, and remaining risks rather than treating any design as unbreakable. Never enter real API keys or bot tokens here.</p>
+  <p><a href="{{ with site.GetPage "missions" }}{{ .RelPermalink }}{{ end }}">Browse the mission library</a> — text versions of every lesson, readable without JavaScript.</p>
+  <button class="quiet" id="resetBtn" aria-describedby="resetNotice">Reset progress</button>
+  <p id="resetNotice" role="status" hidden>Press again to confirm. This only clears your game progress.</p>
+</dialog>
