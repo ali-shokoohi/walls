@@ -14,4 +14,8 @@
 
 ## Screenshots / testing notes
 
-<!-- Include both directions if changing shared layout. Explain any checks you could not run. -->
+<!-- Include both directions if changing shared layout. Explain any checks you could not run. For documentation-only changes, list formatting/link checks and mark application-only checks as not applicable. -->
+
+## Translation review (if applicable)
+
+<!-- Name the language and affected screens/lessons, your familiarity with the language, any automated translation assistance, and whether another person reviewed it. List actual desktop/phone and keyboard checks; distinguish structural validation from language review. -->

@@ -18,8 +18,14 @@ Each section owns its message keys once. Keep the English `.en.json` suffix just
 like `.fa.json` and `.es.json`; do not add unsuffixed English files. Hugo merges these sections
 at build time, so existing keys remain stable to the game and templates.
 
-For a wording change, edit its section in every configured language. Keep placeholders like `{n}`,
-`{total}`, `{before}` and `{title}` unchanged. Do not translate field names,
+For a typo, grammar correction or wording improvement that preserves meaning,
+edit only the affected language. If you change the shared meaning, add/remove a
+message key, or change placeholders, update all configured languages together.
+If you cannot translate a shared change, ask for help in a draft pull request
+rather than publishing English copies as completed translations.
+
+Keep placeholders like `{n}`, `{total}`, `{before}` and `{title}` unchanged in
+translation-only edits. Do not translate field names,
 mission IDs, source codes, unlock IDs or answer indexes.
 
 Mission translations belong together inside the mission bundle:
@@ -84,6 +90,37 @@ through links. It is a navigation disclosure, not an ARIA application menu.
    language-specific target URL should be hardcoded in that partial.
 5. Run validation and add browser checks for the new direction/font/links.
 
+Use the Spanish implementation as a complete LTR example:
+`[languages.es]` in `hugo.toml`, `data/locales/*/strings.es.json`,
+`content/_index.es.md`, `content/missions/_index.es.md`, and every
+`content/missions/<slug>/index.es.md`. Start from the English reference, translate
+every human-facing field, and keep proper names and technical identifiers when
+appropriate. Do not enable a partially translated language for publication;
+coordinate unfinished work in a draft pull request.
+
+### Extend the test coverage
+
+The validator discovers configured languages, but some tests intentionally name
+the supported locales. When adding one, update:
+
+- `tests/unit/views.test.js`: the language list and locale map, so all authored
+  views render with the new dictionary.
+- `tests/test_structure.py`: the language lists for bundles, dictionaries and URLs.
+- `tests/test_build.py`: cover the new homepage, every lesson, local assets and
+  corresponding translation URLs under `/learn/`. Keep the additional-language
+  discovery test meaningful: its synthetic locale must not conflict with a real
+  locale; update the expected picker count and fixture weight as needed.
+- `tests/browser/language-picker.spec.js`: include the new homepage in the narrow
+  picker check. Use explicit `hreflang` selectors rather than assuming there is
+  only one other language.
+- Add browser coverage following `tests/browser/spanish.spec.js`: all missions,
+  retries, reloads, translated notes export, direction/font behavior, keyboard
+  language switching with saved progress and drafts, and no-JavaScript lessons.
+
+Update the supported-language lists and preview URLs in `README.md`,
+`CONTRIBUTING.md`, and the relevant guides/checklists. Record new verification
+results in `VERIFICATION.md` without rewriting historical results as new checks.
+
 The validator discovers configured language codes rather than assuming only two.
 Shared progress works because canonical mission IDs and choices stay invariant.
 No saved state is translated or sent to a server.
@@ -100,3 +137,17 @@ npm test
 Inspect desktop, 320px phone, short landscape dialogs, readable no-JavaScript
 pages and language switches. The original reference PDF remains English and is
 labeled as such; translating the game does not mean the PDF itself was translated.
+
+## Translation review in a pull request
+
+State which language and screens/lessons changed, your familiarity with that
+language, and whether someone else reviewed the translation. Disclose automated
+translation assistance when used and distinguish generated text from text that
+has received human language review.
+
+List actual automated checks and manual checks, including desktop/phone widths,
+keyboard navigation and any skipped checks. For a new language, review the full
+curriculum and UI, including wrong-answer explanations, hints, wordbook, final
+briefing and exported notes. Screenshots help with layout but cannot establish
+translation accuracy. Passing key/placeholder validation is not a native-speaker
+review or a security certification.
