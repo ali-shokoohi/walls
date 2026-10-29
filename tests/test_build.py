@@ -15,7 +15,8 @@ class HugoBuildTests(unittest.TestCase):
         self.assertTrue((ROOT / 'hugo.toml').is_file(), 'Missing Hugo project configuration')
         with tempfile.TemporaryDirectory(prefix='hugo-test-') as destination:
             result = subprocess.run(
-                ['hugo', '--source', str(ROOT), '--destination', destination, '--panicOnWarning'],
+                ['hugo', '--source', str(ROOT), '--destination', destination,
+                 '--baseURL', 'https://example.org/', '--panicOnWarning'],
                 capture_output=True, text=True,
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

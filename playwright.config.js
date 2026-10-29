@@ -14,7 +14,8 @@ export default defineConfig({
     reducedMotion: "reduce",
   },
   webServer: {
-    command: "hugo server --bind 127.0.0.1 --port 1414 --disableLiveReload --noHTTPCache",
+    command:
+      "hugo server --bind 127.0.0.1 --port 1414 --baseURL http://127.0.0.1:1414/ --disableLiveReload --noHTTPCache",
     url: "http://127.0.0.1:1414",
     reuseExistingServer: false,
     timeout: 30000,

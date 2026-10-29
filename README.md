@@ -98,22 +98,31 @@ contributors/tests only. No npm packages are loaded by the deployed game.
 
 ## Build and deploy
 
-Set `baseURL` in `hugo.toml` to your real URL, including any subpath, then build:
+The repository publishes automatically to GitHub Pages from `main` using
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). The
+published site is:
+
+https://ali-shokoohi.github.io/hermes-security-workstation-guide/
+
+The workflow builds Hugo's `public/` output, uploads it as a Pages artifact, and
+deploys it with the official GitHub Pages actions. After enabling Pages once in
+the repository settings, pushes to `main` and manual workflow runs publish the
+site. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+
+For a local production build:
 
 ```sh
 hugo --minify --cleanDestinationDir --panicOnWarning
 ```
 
-Or override it for one build:
+Or override it for another host or subpath:
 
 ```sh
 hugo --minify --cleanDestinationDir --baseURL https://your-domain.example/learn/
 ```
 
-Publish the **contents of `public/`** at that URL. The checked-in configuration
-uses `https://example.org/` as a placeholder; rebuild before public publication.
-Language switches, fonts, CSS, scripts and the PDF respect the configured subpath.
-No SPA fallback or runtime server is required on the static host.
+Language switches, fonts, CSS, scripts and the PDF respect the configured
+subpath. No SPA fallback or runtime server is required on the static host.
 
 Preview a production build locally with:
 

@@ -51,7 +51,7 @@
   - Persian font, direction and technical-token isolation remained functional.
   - No JavaScript page errors.
 - The earlier organization-only refactor screenshots were pixel-identical; the subsequent dropdown intentionally changes header navigation. Its production screenshots were reviewed in Persian at 390px and English at 1440px, with no clipping or layering problems.
-- Contributor workflow, PR checklist, formatting configuration and focused architecture/content/translation guides are included. GitHub Actions configuration was added but no remote workflow run or deployment was performed.
+- Contributor workflow, PR checklist, formatting configuration and focused architecture/content/translation guides are included. GitHub Actions runs contributor checks and the Pages workflow publishes the production build from `main`.
 - Visual inspection passed for desktop, tablet, and 390px mobile Persian screenshots, including RTL layout and readable lesson pages.
 - Production Hugo build completed without warnings; JavaScript syntax check passed.
 
@@ -73,6 +73,6 @@
 
 ## Scope and limits
 
-No remote deployment was performed. `baseURL` is intentionally `https://example.org/`;
-set it to the real site URL and rebuild before public deployment. Tests validate the
+The configured GitHub Pages deployment uses `https://ali-shokoohi.github.io/hermes-security-workstation-guide/`.
+Tests validate the
 learning website, not any of the real security controls described by the game.
