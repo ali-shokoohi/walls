@@ -23,6 +23,19 @@ instructions here:
 If a current task intentionally changes documented behavior, update the relevant
 guide in the same change. Do not leave contradictory rules across Markdown files.
 
+## Read inputs through `rtk`
+
+- Whenever an agent's purpose is to read or inspect data, use `rtk` to perform
+  that read. This applies to file contents, stdin and piped input, logs, search
+  results, diffs, and command output—not only source files.
+- In shell sessions, use the appropriate `rtk` command for the read instead of
+  bypassing it with raw readers such as `cat`, `head`, `tail`, `less`, or direct
+  reads from scripts. For example, read a file with `rtk cat <path>`.
+- If the needed `rtk` command or syntax is unfamiliar, consult `rtk --help`
+  through `rtk` before proceeding. Do not silently fall back to an unwrapped
+  read; if `rtk` cannot access the data, report the limitation and ask before
+  using another method.
+
 ## Project constraints
 
 - Keep the product a beginner-friendly learning game, not an operator dashboard.
@@ -77,14 +90,16 @@ small change to the owning module over a second implementation or a broad rewrit
 
 ## Work and verification
 
-1. Inspect `git status` and the relevant source/docs. Preserve existing user edits;
-   do not reset, overwrite or include unrelated work in a commit. If the worktree
-   is dirty, stop before switching to `main` and require the user to commit or
-   preserve those changes first.
-2. Start delivery from an up-to-date `main`: fast-forward from `origin/main`, then
-   create a related topic branch. Commit and push only after the complete local
-   gate passes; open a PR into `main` and wait for the required `verify` check
-   before merging.
+1. Before any task-specific edit, inspect `git status`. Preserve existing user
+   edits; never reset, overwrite, stash, or include unrelated work in a commit.
+   If the worktree is dirty, stop and ask the user to commit or otherwise preserve
+   those changes before changing branches or proceeding.
+2. With a clean worktree, fast-forward local `main` from `origin/main`, then create
+   a related topic branch before editing any files. Verify the current branch is
+   not `main` before the first edit. Never make task changes directly on `main`,
+   even for documentation-only or one-line changes. Commit and push only after
+   the complete local gate passes; open a PR into `main` and wait for the required
+   `verify` check before merging.
 3. For behavior changes, write a focused regression test and observe its expected
    failure before implementing. Use Node tests for pure logic, Playwright for
    interaction and persistence, and Python/Hugo tests for generated pages/content.

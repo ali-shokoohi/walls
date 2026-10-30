@@ -17,13 +17,15 @@ are welcome. You can contribute content without writing JavaScript.
 
 4. Preview with `hugo server` and open `http://localhost:1313/`.
 5. Find the smallest matching file using [the architecture map](docs/architecture.md).
-6. Make one focused change, run the checks below, and open a pull request.
+6. Before editing any files, complete the branch setup below. Then make one
+   focused change, run the checks below, and open a pull request.
 
-Work on a topic branch created from an up-to-date `main`, not directly on `main`.
-Before switching branches, confirm the current worktree is clean. If it contains
-uncommitted changes, stop and commit or otherwise preserve that work before
-updating `main`; never discard it. Pull the latest `origin/main`, create a
-related topic branch, and keep the branch focused.
+Do not make task changes directly on `main`, including documentation-only or
+one-line changes. Before editing any files, confirm the worktree is clean. If it
+contains uncommitted changes, stop and ask the user to commit or otherwise
+preserve that work; never discard or stash it. With a clean worktree, update
+local `main` from the latest `origin/main`, create a related topic branch, and
+verify you are on that branch before the first edit. Keep the branch focused.
 
 Run the complete local gate before committing. Push the branch only after the
 gate passes, then open a pull request targeting `main`. The `verify` check must
@@ -109,11 +111,13 @@ local build does not deploy anything.
 
 The repository follows this sequence for every change:
 
-1. Confirm the current worktree is clean. If it is not, stop rather than
-   switching branches; commit or preserve the uncommitted work first.
+1. Before editing, confirm the current worktree is clean. If it is not, stop
+   rather than switching branches; ask the user to commit or preserve the
+   uncommitted work first. Do not stash or discard it.
 2. Check out `main` and fast-forward it from `origin/main`.
-3. Create a related topic branch from that updated `main`.
-4. Make the change and run the complete local gate.
+3. Create a related topic branch from that updated `main`; verify it is checked
+   out before making any task-specific change. Never edit directly on `main`.
+4. Make the change and run the complete local gate on the topic branch.
 5. Commit and push the tested branch, then open a pull request into `main`.
 6. Wait for the required `verify` check to pass. Failed checks must be fixed and
    re-run; pending checks are not approval to merge.
