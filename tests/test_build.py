@@ -58,6 +58,54 @@ class HugoBuildTests(unittest.TestCase):
                     target /= 'index.html'
                 self.assertTrue(target.exists(), url)
 
+    def test_german_game_and_readable_lessons_publish_under_a_subpath(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-de-') as destination:
+            result = subprocess.run(
+                ['hugo', '--source', str(ROOT), '--destination', destination,
+                 '--baseURL', 'https://example.org/learn/', '--panicOnWarning'],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            german_home = Path(destination) / 'de/index.html'
+            self.assertTrue(german_home.is_file(), 'Missing German homepage')
+            home = german_home.read_text()
+            self.assertIn('lang="de-DE"', home)
+            self.assertIn('dir="ltr"', home)
+            self.assertNotIn('Vazirmatn', home)
+            self.assertIn('Deutsch', home)
+            self.assertIn('Kleiner Bot, starke Mauern', home)
+            match = re.search(
+                r'<script id="mission-data" type="application/json">(.*?)</script>',
+                home, re.S)
+            self.assertIsNotNone(match)
+            assert match is not None
+            missions = json.loads(match.group(1))
+            self.assertEqual(len(missions), 14)
+            for source in sorted((ROOT / 'content/missions').glob('[0-9]*/index.en.md')):
+                en, _ = json.JSONDecoder().raw_decode(source.read_text())
+                de, _ = json.JSONDecoder().raw_decode(source.with_name('index.de.md').read_text())
+                for key in ['id', 'weight', 'source', 'challenge_type', 'answer', 'unlocks']:
+                    self.assertEqual(en[key], de[key], f'{source.parent.name}: {key}')
+                self.assertEqual(len(en['options']), len(de['options']))
+                # Proper names in speaker labels (for example Sina) stay unchanged.
+                for key in ['title', 'chapter', 'goal', 'scene', 'message',
+                            'task', 'success', 'lesson', 'why', 'term', 'reward']:
+                    self.assertNotEqual(en[key], de[key], f'{source.parent.name}: {key}')
+                lesson = (Path(destination) / 'de/missions' / source.parent.name / 'index.html').read_text()
+                self.assertIn(de['title'], lesson)
+                self.assertIn(f'href="/learn/missions/{source.parent.name}/" lang="en"', lesson)
+                self.assertIn(f'href="/learn/fa/missions/{source.parent.name}/" lang="fa"', lesson)
+                self.assertIn(f'href="/learn/es/missions/{source.parent.name}/" lang="es"', lesson)
+            self.assertTrue((Path(destination) / 'de/missions/index.html').is_file())
+            for url in re.findall(r'(?:src|href)="([^"]+)"', home):
+                if not url.startswith('/'):
+                    continue
+                self.assertTrue(url.startswith('/learn/'), url)
+                target = Path(destination) / url.removeprefix('/learn/')
+                if url.endswith('/'):
+                    target /= 'index.html'
+                self.assertTrue(target.exists(), url)
+
     def test_dark_theme_follows_system_preference(self):
         with tempfile.TemporaryDirectory(prefix='hugo-theme-') as destination:
             result = subprocess.run(
@@ -133,22 +181,25 @@ class HugoBuildTests(unittest.TestCase):
             project = Path(temp) / 'site'
             shutil.copytree(ROOT, project, ignore=shutil.ignore_patterns(
                 '.git', 'node_modules', 'public', 'resources', '__pycache__', 'test-results'))
+            # The synthetic locale is fictitious so it cannot collide with a
+            # real configured language such as German.
             with (project / 'hugo.toml').open('a') as config:
-                config.write("\n[languages.de]\nweight = 4\nlabel = 'Deutsch'\nlocale = 'de-DE'\ndirection = 'ltr'\n")
+                config.write("\n[languages.xx]\nweight = 5\nlabel = 'Testlokal'\nlocale = 'xx-XX'\ndirection = 'ltr'\n")
             # English copies are a test fixture only, not a published translation.
             for source in list((project / 'content').rglob('*.en.md')):
-                shutil.copyfile(source, source.with_name(source.name.replace('.en.', '.de.')))
+                shutil.copyfile(source, source.with_name(source.name.replace('.en.', '.xx.')))
             for source in list((project / 'data/locales').rglob('strings.en.json')):
-                shutil.copyfile(source, source.with_name('strings.de.json'))
+                shutil.copyfile(source, source.with_name('strings.xx.json'))
             result = subprocess.run(['hugo', '--source', str(project), '--panicOnWarning',
                                      '--baseURL', 'https://example.org/learn/'],
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             lesson = (project / 'public/fa/missions/01-invitation/index.html').read_text()
             picker = re.search(r'<ul class="language-options">(.*?)</ul>', lesson, re.S).group(1)
-            self.assertEqual(len(re.findall(r'<a ', picker)), 4)
+            self.assertEqual(len(re.findall(r'<a ', picker)), 5)
             self.assertIn('href="/learn/de/missions/01-invitation/" lang="de"', picker)
-            self.assertIn('Deutsch', picker)
+            self.assertIn('href="/learn/xx/missions/01-invitation/" lang="xx"', picker)
+            self.assertIn('Testlokal', picker)
             self.assertEqual(picker.count('aria-current="page"'), 1)
             self.assertIn('hreflang="fa" aria-current="page"', picker)
 
@@ -171,23 +222,30 @@ class HugoBuildTests(unittest.TestCase):
     def test_translation_keys_and_mission_invariants_match(self):
         for group in sorted((ROOT / 'data/locales').iterdir()):
             en = json.loads((group / 'strings.en.json').read_text())
-            fa = json.loads((group / 'strings.fa.json').read_text())
-            self.assertEqual(set(en), set(fa), group)
-            for key in en:
-                self.assertTrue(fa[key], key)
-                self.assertEqual(set(re.findall(r'\{\w+\}', en[key])), set(re.findall(r'\{\w+\}', fa[key])), key)
+            for lang in ['fa', 'es', 'de']:
+                translated = json.loads((group / f'strings.{lang}.json').read_text())
+                self.assertEqual(set(en), set(translated), (group, lang))
+                for key in en:
+                    self.assertTrue(translated[key], (key, lang))
+                    self.assertEqual(set(re.findall(r'\{\w+\}', en[key])),
+                                     set(re.findall(r'\{\w+\}', translated[key])), (key, lang))
         english = sorted((ROOT / 'content/missions').glob('[0-9]*/index.en.md'))
         self.assertEqual(len(english), 14)
         for source in english:
             en, _ = json.JSONDecoder().raw_decode(source.read_text())
-            fa, _ = json.JSONDecoder().raw_decode(source.with_name(source.name.replace('.en.', '.fa.')).read_text())
-            for key in ['id', 'weight', 'source', 'challenge_type', 'answer', 'unlocks']:
-                self.assertEqual(en[key], fa[key], f'{source.name}: {key}')
-            self.assertEqual(len(en['options']), len(fa['options']))
-            for key in ['title', 'scene', 'task', 'success', 'lesson']:
-                self.assertRegex(fa[key], r'[\u0600-\u06ff]', key)
-                self.assertNotEqual(en[key], fa[key])
-            self.assertEqual([(r['before'], r['after']) for r in en.get('order_rules', [])], [(r['before'], r['after']) for r in fa.get('order_rules', [])])
+            for lang in ['fa', 'es', 'de']:
+                translated, _ = json.JSONDecoder().raw_decode(
+                    source.with_name(source.name.replace('.en.', f'.{lang}.')).read_text())
+                for key in ['id', 'weight', 'source', 'challenge_type', 'answer', 'unlocks']:
+                    self.assertEqual(en[key], translated[key], f'{source.name}: {key} ({lang})')
+                self.assertEqual(len(en['options']), len(translated['options']), (source.name, lang))
+                for key in ['title', 'scene', 'task', 'success', 'lesson']:
+                    self.assertNotEqual(en[key], translated[key], f'{source.name}: {key} ({lang})')
+                    if lang == 'fa':
+                        self.assertRegex(translated[key], r'[\u0600-\u06ff]', key)
+                self.assertEqual([(r['before'], r['after']) for r in en.get('order_rules', [])],
+                                 [(r['before'], r['after']) for r in translated.get('order_rules', [])],
+                                 (source.name, lang))
 
     def test_farsi_subpath_assets_and_linked_translations(self):
         with tempfile.TemporaryDirectory(prefix='hugo-fa-') as destination:

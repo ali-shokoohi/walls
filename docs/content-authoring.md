@@ -7,7 +7,7 @@ commands. Keep the normal-user audience, conditional security claims and privacy
 limits. Mistakes should help the learner reason, not cost lives or points.
 
 Find the mission directory under `content/missions/`, and edit the appropriate
-`index.en.md`, `index.fa.md` or `index.es.md`. These files start with **JSON front matter**.
+`index.en.md`, `index.fa.md`, `index.es.md` or `index.de.md`. These files start with **JSON front matter**.
 The folder owns the URL; the language suffix links the translations.
 
 ## Schema

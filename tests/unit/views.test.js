@@ -15,7 +15,7 @@ const frontmatter = (source) => {
   const end = source.lastIndexOf("}");
   return JSON.parse(source.slice(0, end + 1));
 };
-for (const language of ["en", "fa", "es"]) {
+for (const language of ["en", "fa", "es", "de"]) {
   test(`${language} views render actual authored content without browser globals`, () => {
     const strings = Object.assign(
       {},
@@ -41,7 +41,7 @@ for (const language of ["en", "fa", "es"]) {
         return { ...m, type: m.challenge_type };
       });
     const store = createStore(missions, { getItem: () => null, setItem: () => {} });
-    const locales = { en: "en-US", fa: "fa-IR", es: "es-ES" };
+    const locales = { en: "en-US", fa: "fa-IR", es: "es-ES", de: "de-DE" };
     const i18n = createI18n({ locale: locales[language], strings });
     const ctx = { missions, store, i18n, selected: [], result: null, showHint: false };
     assert.match(renderWelcome(ctx), /id="start"/);

@@ -32,5 +32,14 @@ disableKinds = ['taxonomy', 'term', 'RSS']
   [languages.es.params]
     description = 'Aprende a proteger un bot de IA con 14 misiones narrativas. Sin programar, sin cronómetros y sin experiencia con servidores.'
 
+[languages.de]
+  weight = 4
+  label = 'Deutsch'
+  locale = 'de-DE'
+  direction = 'ltr'
+  title = 'Kleiner Bot, starke Mauern'
+  [languages.de.params]
+    description = 'Schütze deinen KI-Bot in 14 kurzen Story-Missionen. Kein Programmieren, keine Zeitlimits, keine Server-Erfahrung nötig.'
+
 [module.hugoVersion]
   min = '0.158.0'

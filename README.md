@@ -7,6 +7,7 @@ progress. No coding or server experience is needed to play.
 - **English:** `/`, left-to-right, original fonts.
 - **فارسی:** `/fa/`, right-to-left, locally hosted **Vazirmatn only on Persian pages**.
 - **Español:** `/es/`, left-to-right, with the complete game and readable lessons.
+- **Deutsch:** `/de/`, left-to-right, with the complete game and readable lessons.
 - A readable mission library works without JavaScript.
 - Everything deploys as static files; no backend, analytics, CDN, or runtime API.
 
@@ -24,8 +25,8 @@ Standard Hugo is sufficient; Extended and npm are not required to build/play.
 hugo server --bind 127.0.0.1 --port 1313
 ```
 
-Open **http://localhost:1313/**, **http://localhost:1313/fa/**, or
-**http://localhost:1313/es/**.
+Open **http://localhost:1313/**, **http://localhost:1313/fa/**,
+**http://localhost:1313/es/**, or **http://localhost:1313/de/**.
 
 ## Contribute
 
@@ -41,22 +42,27 @@ content/
   _index.en.md                  # English homepage
   _index.fa.md                  # Persian homepage
   _index.es.md                  # Spanish homepage
+  _index.de.md                  # German homepage
   missions/
     _index.en.md                # English mission library
     _index.fa.md                # Persian mission library
     _index.es.md                # Spanish mission library
+    _index.de.md                # German mission library
     01-invitation/
       index.en.md               # One mission, English
       index.fa.md               # Same mission, Persian
       index.es.md               # Same mission, Spanish
+      index.de.md               # Same mission, German
     ...
 data/locales/
   welcome/strings.en.json       # Welcome-section interface strings
   welcome/strings.fa.json
   welcome/strings.es.json
+  welcome/strings.de.json
   mission/strings.en.json       # Other sections follow the same convention
   mission/strings.fa.json
   mission/strings.es.json
+  mission/strings.de.json
   ...
 assets/js/
   main.js                       # ES module entry; imports app and locale helpers

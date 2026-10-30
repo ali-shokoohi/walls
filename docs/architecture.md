@@ -51,19 +51,22 @@ content/missions/
   _index.en.md
   _index.fa.md
   _index.es.md
+  _index.de.md
   01-invitation/
     index.en.md
     index.fa.md
     index.es.md
+    index.de.md
   02-injection/
     index.en.md
     index.fa.md
     index.es.md
+    index.de.md
 ```
 
 The directory is the public slug; this reorganization preserves existing URLs
-such as `/missions/01-invitation/`, `/fa/missions/01-invitation/`, and
-`/es/missions/01-invitation/`.
+such as `/missions/01-invitation/`, `/fa/missions/01-invitation/`,
+`/es/missions/01-invitation/`, and `/de/missions/01-invitation/`.
 Hugo `.Translations` links the corresponding pages. `_index.<lang>.md` files
 represent sections; `index.<lang>.md` files represent individual lesson bundles.
 
@@ -79,7 +82,8 @@ keys, language files and mismatched placeholders before deployment.
 `styles.html` concatenates CSS in a documented order: tokens → base → components
 → interactions → responsive → accessibility. This preserves the cascade and
 publishes one minified fingerprinted stylesheet, without runtime `@import`
-requests. Persian-only typography remains in `farsi.css`; English and Spanish never load it.
+requests. Persian-only typography remains in `farsi.css`; English, Spanish and
+German never load it.
 
 Motion lives in `interactions.css` behind `prefers-reduced-motion: no-preference`.
 `app.js` marks scene entrances versus feedback updates with `#app[data-motion]`,

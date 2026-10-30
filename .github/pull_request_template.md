@@ -8,7 +8,7 @@
 - [ ] `hugo --minify --panicOnWarning`
 - [ ] Work started from a clean, up-to-date `main` topic branch
 - [ ] The branch was pushed only after the local gate passed
-- [ ] English/Spanish LTR and Persian RTL checked for UI/content changes
+- [ ] English/Spanish/German LTR and Persian RTL checked for UI/content changes
 - [ ] Phone layout and keyboard flow checked for interface changes
 - [ ] Translation keys/placeholders and stable mission IDs preserved
 - [ ] Wrong answers explain the actual mistake, not an unsolicited hint

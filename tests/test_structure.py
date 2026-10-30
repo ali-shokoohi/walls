@@ -14,9 +14,11 @@ class ContributorStructureTests(unittest.TestCase):
         self.assertEqual(len(bundles), 14)
         for bundle in bundles:
             self.assertTrue(bundle.is_dir(), f'{bundle.name}: use a mission directory')
-            for lang in ['en', 'fa', 'es']:
+            for lang in ['en', 'fa', 'es', 'de']:
                 self.assertTrue((bundle / f'index.{lang}.md').is_file())
         self.assertTrue((ROOT / 'content/missions/_index.en.md').is_file())
+        self.assertTrue((ROOT / 'content/missions/_index.de.md').is_file())
+        self.assertTrue((ROOT / 'content/_index.de.md').is_file())
 
     def test_game_uses_imports_and_a_module_entry_point(self):
         entry = ROOT / 'assets/js/main.js'
@@ -30,7 +32,7 @@ class ContributorStructureTests(unittest.TestCase):
         self.assertGreaterEqual(len(sections), 6)
         for section in sections:
             en = json.loads((section / 'strings.en.json').read_text())
-            for lang in ['fa', 'es']:
+            for lang in ['fa', 'es', 'de']:
                 translated = json.loads((section / f'strings.{lang}.json').read_text())
                 self.assertEqual(set(en), set(translated), f'{section.name}: {lang}')
 
@@ -38,7 +40,7 @@ class ContributorStructureTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='hugo-structure-') as destination:
             build = subprocess.run(['hugo', '--source', str(ROOT), '--destination', destination, '--panicOnWarning'], capture_output=True, text=True)
             self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
-            for lang in ['', 'fa/', 'es/']:
+            for lang in ['', 'fa/', 'es/', 'de/']:
                 self.assertTrue((Path(destination) / f'{lang}missions/01-invitation/index.html').exists())
                 self.assertTrue((Path(destination) / f'{lang}missions/14-final/index.html').exists())
 

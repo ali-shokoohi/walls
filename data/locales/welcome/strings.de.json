@@ -1,0 +1,19 @@
+{
+  "introEyebrow": "Du musst kein Server-Experte sein.",
+  "intro1": "Ein kleiner Bot.",
+  "intro2": "Sechs starke Mauern.",
+  "intro3": "Deine Entscheidungen.",
+  "introBody": "Lerne zwei Freunde, eine hilfsbereite KI und ein paar richtig schlitzoogige Nachrichten kennen. Baue Schutzwälle Entscheidung für Entscheidung auf — und erfahre, was passiert, wenn ein Bot getäuscht wird.",
+  "continue": "Fahre mit deinem Abenteuer fort",
+  "start": "Starte dein Abenteuer",
+  "introMeta": "{n} kurze Missionen · Kein Code · Kein Zeitlimit · Fehler willkommen",
+  "protect": "Beschütze die kleine Welt des Bots.",
+  "meet": "Begegne einem Problem.",
+  "meetBody": "Ein geklauter Account. Ein tückisches Dokument. Ein Geheimnis am falschen Ort.",
+  "decide": "Treffe eine Entscheidung.",
+  "decideBody": "Wähle, was du erlaubst, beschützt oder abschließt.",
+  "learn": "Sieh, warum es wichtig ist.",
+  "learnBody": "Schalte eine Verteidigung frei und lerne eine nützliche Idee.",
+  "operatorNote": "Du kannst die Entscheidungen der Person, die das System betreibt, lernen — ohne selbst eine zu werden.",
+  "sourceNote": "Basierend auf deinem bereitgestellten Sicherheitsratgeber. Dies ist ein Lernspiel, kein Live-System und keine Sicherheitszertifizierung."
+}
