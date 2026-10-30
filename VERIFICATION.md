@@ -43,6 +43,33 @@ check`, `hugo --minify --panicOnWarning`, and `git diff --check`: 9 Node unit
 - No dependencies, storage format, mission IDs or answer indexes changed. The
   original reference PDF remains English; no remote deployment was performed.
 
+## German language support
+
+- Contributor preflight passed: `Validated 14 missions, 4 locales, 8 translation sections.`
+- The complete local gate passed, run from the repository root:
+  - `npm run validate` passed as above.
+  - `npm run format:check` passed with the pinned Prettier version.
+  - All 10 Node unit tests passed, including authored German view rendering.
+  - All 23 Python validation/structure/Hugo tests passed, including the German
+    homepage, game and all 14 translated lessons under the `/learn/` subpath
+    with stable answer indexes and translation links to the corresponding
+    English, Persian and Spanish lessons, plus the re-pointed synthetic `xx`
+    locale fixture (five language-picker entries).
+  - `CHROMIUM_PATH=/usr/bin/chromium npm test` passed: all 49 Playwright tests.
+    New German checks cover all 14 missions, wrong-answer retry, completion
+    persistence and translated notes export at 320px and 1440px, LTR direction
+    with no Persian font requests, keyboard language switching with shared
+    progress/draft preservation, and the no-JavaScript library. The narrow
+    language-picker check includes English, Persian, Spanish and German.
+- `hugo --minify --panicOnWarning` and `git diff --check` passed; the
+  production build emits `de/` with the homepage, library and all 14 lessons.
+- English/Persian/Spanish regression tests remain green. German screenshots
+  have not received a separate visual review, and the translation has not
+  received an independent native-speaker review.
+- No dependencies, storage format, mission IDs, answer indexes or deployment
+  URL changed. The original reference PDF remains English; no remote
+  deployment was performed.
+
 ## Earlier baseline results
 
 - Contributor preflight passed: `Validated 14 missions, 2 locales, 8 translation sections.`

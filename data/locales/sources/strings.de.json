@@ -1,0 +1,15 @@
+{
+  "s1": "Zusammenfassung und Fazit",
+  "s2": "Bedrohungsmodell",
+  "s7": "Ebene 1: Absicherung des Hosts",
+  "s8": "Ebene 2: Isolierung der Ausführung",
+  "s9": "Ebene 3: Isolierung des Netzwerks",
+  "s10": "Ebene 4: Geheimnisse",
+  "s11": "Ebene 5: Absicherung von Hermes",
+  "s12": "Ebene 6: Ausführungssandbox",
+  "s13": "Verifizierung",
+  "s14": "Überwachung",
+  "s15": "Reaktion auf Vorfälle",
+  "s16": "Wartung",
+  "s18": "Verbleibende Risiken"
+}

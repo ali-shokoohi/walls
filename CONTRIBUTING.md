@@ -38,12 +38,13 @@ request.
 For a typo, grammar fix or clearer wording that keeps the same meaning:
 
 1. Find the affected `strings.<language>.json` or `index.<language>.md` using the
-   table below. Edit only that language; you do not need to know all three.
+   table below. Edit only that language; you do not need to know all four.
 2. Preserve JSON keys, placeholders such as `{n}`, mission IDs, option order and
    answer indexes. See the [translation guide](docs/translations.md) for changes
    that affect the shared meaning or add a language.
 3. Run `python3 scripts/validate.py` and preview the affected screen or lesson
-   with `hugo server`: English is at `/`, Persian at `/fa/`, Spanish at `/es/`.
+   with `hugo server`: English is at `/`, Persian at `/fa/`, Spanish at `/es/`,
+   German at `/de/`.
 4. Open a pull request with the before/after wording, your familiarity with the
    language, and the checks you ran. State any checks you could not run; a draft
    pull request is welcome if you need help completing them.
@@ -57,17 +58,17 @@ examples, screenshots, or commits. The game never needs them.
 
 ## Where to make changes
 
-| Change                             | Location                                                            |
-| ---------------------------------- | ------------------------------------------------------------------- |
-| Mission story, choices, feedback   | `content/missions/<slug>/index.<language>.md` (`en`, `fa`, `es`)    |
-| Interface wording                  | `data/locales/<section>/strings.<language>.json` (`en`, `fa`, `es`) |
-| Answer correctness / diagnosis     | `assets/js/core/rules.js`                                           |
-| Progress saving / recovery         | `assets/js/core/state.js`                                           |
-| Escaping, numbers, text direction  | `assets/js/core/i18n.js`                                            |
-| Screen markup                      | `assets/js/views/`                                                  |
-| Click/keyboard flow, navigation    | `assets/js/app.js` and `assets/js/ui/`                              |
-| Visual design                      | `assets/css/`                                                       |
-| Readable lesson pages / HTML shell | `layouts/`                                                          |
+| Change                             | Location                                                              |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| Mission files                      | `content/missions/<slug>/index.<lang>.md` (`en`, `fa`, `es`, `de`)    |
+| Interface strings                  | `data/locales/<section>/strings.<lang>.json` (`en`, `fa`, `es`, `de`) |
+| Answer correctness / diagnosis     | `assets/js/core/rules.js`                                             |
+| Progress saving / recovery         | `assets/js/core/state.js`                                             |
+| Escaping, numbers, text direction  | `assets/js/core/i18n.js`                                              |
+| Screen markup                      | `assets/js/views/`                                                    |
+| Click/keyboard flow, navigation    | `assets/js/app.js` and `assets/js/ui/`                                |
+| Visual design                      | `assets/css/`                                                         |
+| Readable lesson pages / HTML shell | `layouts/`                                                            |
 
 Read [content authoring](docs/content-authoring.md) before adding a mission and
 [translation/RTL guidance](docs/translations.md) before editing a locale.
@@ -150,8 +151,8 @@ as passed. CI results do not replace language review or visual inspection.
   tests; actual focus, navigation, scrolling and font loading belong in browser tests.
 - Do not duplicate JavaScript implementations or publish test-only globals. Import
   shared logic, and test pure helpers directly rather than calling browser globals.
-- Test shared interface changes in English, Persian and Spanish, at desktop and
-  narrow-phone widths. Keep keyboard focus and reduced-motion behavior intact.
+- Test shared interface changes in English, Persian, Spanish and German, at desktop
+  and narrow-phone widths. Keep keyboard focus and reduced-motion behavior intact.
 - Do not commit `public/`, `resources/`, `node_modules/`, test output, or caches.
 - Avoid reformatting unrelated files. Go templates and JSON-front-matter Markdown
   are intentionally excluded from the general Prettier command.

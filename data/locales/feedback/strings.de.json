@@ -1,0 +1,23 @@
+{
+  "whyFails": "Warum das schiefgeht",
+  "consequence": "Was passieren kann",
+  "orderProblem": "Reihenfolge-Problem: „{before}“ muss vor „{after}“ kommen",
+  "missingStep": "Fehlender Schritt: {title}",
+  "chose": "Du hast gewählt: {title}",
+  "missingProtection": "Fehlende Absicherung: {title}",
+  "tryLearn": "Probieren, lernen, anpassen",
+  "breaks": "Hier geht diese Entscheidung in die Brüche.",
+  "wrongChoiceIntro": "Das ist die Annahme in deiner gewählten Antwort, die nicht standhält.",
+  "wrongOtherIntro": "Das sind die konkreten Lücken in deiner eingereichten Antwort.",
+  "exampleNote": "Die folgenden Folgen sind Beispiele, keine Aktionen, die dieses Spiel ausführt.",
+  "retryNote": "Es gibt keine Strafe. Ändere deine Antwort und prüfe dein Vorgehen erneut.",
+  "retry": "Eine andere Entscheidung versuchen",
+  "missionComplete": "Mission abgeschlossen",
+  "defenseUnlocked": "Verteidigung freigeschaltet.",
+  "gotIt": "Du hast die Idee begriffen.",
+  "plainWord": "In einfachen Worten:",
+  "fromPdf": "Aus dem PDF:",
+  "finalOpen": "Mein Abschlussbriefing öffnen",
+  "next": "Nächste Mission",
+  "aboutSource": "Über die Quelle"
+}

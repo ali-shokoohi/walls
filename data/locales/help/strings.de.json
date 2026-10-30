@@ -1,0 +1,14 @@
+{
+  "helpTitle": "Lernen durch Ausprobieren.",
+  "helpRole": "Du spielst den Besitzer eines gemeinsam genutzten KI-Bots. Du musst kein Linux kennen, keinen Code schreiben und keinen Server einrichten. Wähle eine Antwort, prüfe sie und sieh, warum sie funktioniert — oder was du übersehen hast.",
+  "helpRules": "Es gibt keine Leben, keine Zeitnehmer und keine Strafen für eine falsche Antwort. Nutze Hinweise frei. Mehrfachauswahl-Missionen verlangen genau die sicheren Optionen. In der Sortiermission tippst du die Schritte in der richtigen Reihenfolge; tippst du erneut, entfernst du einen, oder nutze „Auswahl aufheben“, um neu zu beginnen.",
+  "helpPause": "Mach dir jederzeit eine Pause. Deine Antworten, dein Feedback und deine abgeschlossenen Missionen werden in diesem Browser gespeichert, wenn Speicher verfügbar ist. Wähle „Speichern & pausieren“, um zum Begrüßungsbildschirm zurückzukehren. Der Missionspfad lässt dich freigeschaltene Lektionen erneut besuchen.",
+  "helpPoints": "Jede abgeschlossene Mission vergibt einmalig 100 Lernpunkte. Dein Fortschritt wird nirgendwohin gesendet. Nutze „Fortschritt zurücksetzen“, um ihn zu löschen.",
+  "helpDisclaimer": "Didaktisches Modell, kein Sicherheitsaudit: Dieses Spiel vereinfacht das mitgelieferte PDF „Hardening a Shared Hermes Agent on Telegram“, finale Ausgabe vom 28. Oktober 2026. Das Abschließen konfiguriert, verifiziert oder sichert kein reales System.",
+  "downloadPdf": "Das ursprüngliche PDF herunterladen (Englisch)",
+  "helpLimits": "Echte Produktivsysteme müssen auf ihre Version geprüft und getestet werden. Das Spiel legt den Schwerpunkt auf Eindämmung, geringste Berechtigung und verbleibende Risiken, statt ein Design als unzerstörbar zu behandeln. Gib hier niemals echte API-Keys oder Bot-Token ein.",
+  "browse": "Die Missionsbibliothek durchstöbern",
+  "libraryNote": "Textversionen jeder Lektion, lesbar ohne JavaScript.",
+  "reset": "Fortschritt zurücksetzen",
+  "resetConfirm": "Drücke erneut zur Bestätigung. Damit wird nur dein Spiel-Fortschritt gelöscht."
+}

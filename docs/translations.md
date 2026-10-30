@@ -4,18 +4,18 @@
 
 ```text
 data/locales/
-  navigation/strings.en.json + strings.fa.json + strings.es.json
-  help/strings.en.json       + strings.fa.json + strings.es.json
-  welcome/strings.en.json    + strings.fa.json + strings.es.json
-  progress/strings.en.json   + strings.fa.json + strings.es.json
-  mission/strings.en.json    + strings.fa.json + strings.es.json
-  feedback/strings.en.json   + strings.fa.json + strings.es.json
-  sources/strings.en.json    + strings.fa.json + strings.es.json
-  briefing/strings.en.json   + strings.fa.json + strings.es.json
+  navigation/strings.en.json + strings.fa.json + strings.es.json + strings.de.json
+  help/strings.en.json       + strings.fa.json + strings.es.json + strings.de.json
+  welcome/strings.en.json    + strings.fa.json + strings.es.json + strings.de.json
+  progress/strings.en.json   + strings.fa.json + strings.es.json + strings.de.json
+  mission/strings.en.json    + strings.fa.json + strings.es.json + strings.de.json
+  feedback/strings.en.json   + strings.fa.json + strings.es.json + strings.de.json
+  sources/strings.en.json    + strings.fa.json + strings.es.json + strings.de.json
+  briefing/strings.en.json   + strings.fa.json + strings.es.json + strings.de.json
 ```
 
 Each section owns its message keys once. Keep the English `.en.json` suffix just
-like `.fa.json` and `.es.json`; do not add unsuffixed English files. Hugo merges these sections
+like `.fa.json`, `.es.json` and `.de.json`; do not add unsuffixed English files. Hugo merges these sections
 at build time, so existing keys remain stable to the game and templates.
 
 For a typo, grammar correction or wording improvement that preserves meaning,
@@ -29,7 +29,7 @@ translation-only edits. Do not translate field names,
 mission IDs, source codes, unlock IDs or answer indexes.
 
 Mission translations belong together inside the mission bundle:
-`content/missions/<slug>/index.en.md`, `index.fa.md`, and `index.es.md`. Translate every human
+`content/missions/<slug>/index.en.md`, `index.fa.md`, `index.es.md`, and `index.de.md`. Translate every human
 field, including incorrect-choice reasons, consequences, ordering rules, term
 meanings and rewards. Preserve the exact option order.
 
@@ -43,9 +43,19 @@ meanings and rewards. Preserve the exact option order.
 - Verify all 14 lessons, retries, saved progress across language switches, keyboard
   navigation and the no-JavaScript library at desktop and 320px phone widths.
 
+## German rules
+
+- German lives at `/de/`, uses locale `de-DE`, and stays LTR with the shared fonts.
+- Use clear, beginner-friendly German and a consistent **du** register. Translate
+  explanations, feedback, wordbook entries and exported notes, not just headings.
+- Preserve technical tokens and canonical defense IDs. The original PDF stays
+  English and must be labeled as such.
+- Verify all 14 lessons, retries, saved progress across language switches, keyboard
+  navigation and the no-JavaScript library at desktop and 320px phone widths.
+
 ## Persian rules
 
-- English and Spanish stay LTR. Persian is RTL at the document root and in the language
+- English, Spanish and German stay LTR. Persian is RTL at the document root and in the language
   configuration—not a global CSS flip applied to both languages.
 - Use **Vazirmatn only on Persian pages**. The font is self-hosted with its OFL
   license and pinned upstream commit under `static/fonts/`. Do not add a remote
