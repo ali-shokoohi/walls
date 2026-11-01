@@ -148,6 +148,8 @@ hugo --minify --cleanDestinationDir --baseURL https://your-domain.example/learn/
 
 Language switches, fonts, CSS, scripts and the PDF respect the configured
 subpath. No SPA fallback or runtime server is required on the static host.
+Open Graph and Twitter card image URLs are absolute, so set the real public
+`baseURL` for link previews to resolve.
 
 Preview a production build locally with:
 

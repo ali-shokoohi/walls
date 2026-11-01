@@ -30,5 +30,6 @@
   "language": "Idioma",
   "lightTheme": "Modo claro",
   "darkTheme": "Modo oscuro",
-  "githubRepository": "Repositorio de GitHub"
+  "githubRepository": "Repositorio de GitHub",
+  "socialImageAlt": "Un robot amable guarda en un cajón una carpeta marcada como PRIVATE, rodeado de muros de ladrillo e iconos de escudo, candado y balanza."
 }

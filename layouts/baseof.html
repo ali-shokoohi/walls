@@ -21,6 +21,7 @@
   <meta name="description" content="{{ .Description | default site.Params.description }}">
   <link rel="canonical" href="{{ .Permalink }}">
   {{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">{{ end }}
+  {{ if ne .Kind "404" }}{{ partial "social-meta.html" . }}{{ end }}
   {{ if eq site.Language.Lang "fa" }}
     <link rel="preload" href="{{ "fonts/Vazirmatn-Variable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
     {{ $fa := resources.Get "css/farsi.css" | resources.ExecuteAsTemplate "css/farsi.css" . | minify | fingerprint "sha256" }}

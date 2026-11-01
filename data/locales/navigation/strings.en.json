@@ -30,5 +30,6 @@
   "language": "Language",
   "lightTheme": "Light mode",
   "darkTheme": "Dark mode",
-  "githubRepository": "GitHub repository"
+  "githubRepository": "GitHub repository",
+  "socialImageAlt": "A friendly robot files a folder marked PRIVATE into a drawer, surrounded by brick walls and shield, lock and balance-scale icons."
 }

@@ -1,4 +1,5 @@
 """Real Hugo builds; no third-party Python test dependencies."""
+from html.parser import HTMLParser
 from pathlib import Path
 import json
 import re
@@ -120,6 +121,57 @@ class HugoBuildTests(unittest.TestCase):
             css = (Path(destination) / css_url.lstrip('/')).read_text()
             self.assertIn(':root[data-theme=dark]', css)
             self.assertIn('matchMedia("(prefers-color-scheme: dark)")', home)
+
+    def test_pages_publish_localized_social_preview_metadata(self):
+        with tempfile.TemporaryDirectory(prefix='hugo-social-') as destination:
+            result = subprocess.run(
+                ['hugo', '--source', str(ROOT), '--destination', destination,
+                 '--baseURL', 'https://example.org/learn/', '--minify', '--panicOnWarning'],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            out = Path(destination)
+
+            def meta(html):
+                # Parse attributes so minified (sometimes unquoted) values compare decoded.
+                tags = {}
+
+                class MetaParser(HTMLParser):
+                    def handle_starttag(self, tag, attrs):
+                        attrs = dict(attrs)
+                        key = attrs.get('property') or attrs.get('name')
+                        if tag == 'meta' and key:
+                            tags.setdefault(key, []).append(attrs.get('content'))
+
+                MetaParser().feed(html)
+                return tags
+
+            image = 'https://example.org/learn/images/social-preview.jpg'
+            self.assertTrue((out / 'images/social-preview.jpg').is_file())
+            cases = [
+                ('index.html', 'https://example.org/learn/', 'website', 'en_US', 'en'),
+                ('fa/missions/01-invitation/index.html',
+                 'https://example.org/learn/fa/missions/01-invitation/', 'article', 'fa_IR', 'fa'),
+                ('es/missions/index.html', 'https://example.org/learn/es/missions/', 'website', 'es_ES', 'es'),
+            ]
+            for path, url, kind, locale, lang in cases:
+                tags = meta((out / path).read_text())
+                strings = json.loads((ROOT / f'data/locales/navigation/strings.{lang}.json').read_text())
+                self.assertEqual(tags.get('og:url'), [url], path)
+                self.assertEqual(tags.get('og:type'), [kind], path)
+                self.assertEqual(tags.get('og:locale'), [locale], path)
+                self.assertEqual(len(tags.get('og:locale:alternate', [])), 3, path)
+                self.assertNotIn(locale, tags['og:locale:alternate'], path)
+                self.assertEqual(tags.get('og:image'), [image], path)
+                self.assertEqual(tags.get('twitter:image'), [image], path)
+                self.assertEqual(tags.get('og:image:width'), ['1280'], path)
+                self.assertEqual(tags.get('og:image:height'), ['720'], path)
+                self.assertEqual(tags.get('twitter:card'), ['summary_large_image'], path)
+                self.assertEqual(tags.get('og:image:alt'), [strings['socialImageAlt']], path)
+                for key in ['og:site_name', 'og:title', 'og:description',
+                            'twitter:title', 'twitter:description']:
+                    self.assertTrue(tags.get(key, [''])[0], (path, key))
+            self.assertNotIn('og:url', meta((out / '404.html').read_text()))
 
     def test_homepage_publishes_playable_game(self):
         self.assertTrue((ROOT / 'hugo.toml').is_file(), 'Missing Hugo project configuration')

@@ -100,7 +100,13 @@ new component next to its ownership group and avoid a growing pile of unrelated
 overrides. Use logical inline spacing, not separate copied LTR/RTL stylesheets.
 
 Hugo templates own SEO metadata, the language switcher, readable no-JavaScript
-pages, shared dialogs, and data serialization. Raw mission prose is escaped
+pages, shared dialogs, and data serialization. `_partials/social-meta.html` adds
+Open Graph and Twitter card tags to every page except the 404 page. Crawlers
+require absolute URLs, so the shared preview `static/images/social-preview.jpg`
+(1280×720) is linked with `absURL` and follows a subpath `baseURL`; its localized
+alt text is the `socialImageAlt` key in `data/locales/navigation/`.
+
+Raw mission prose is escaped
 before becoming HTML; do not use `safeHTML` on contributor content without a
 specific reviewed escaping boundary.
 
